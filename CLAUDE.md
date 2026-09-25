@@ -17,6 +17,6 @@ Sitio cívico de datos abiertos de Bogotá, por localidad. Especificación: @doc
 - IMPORTANTE: antes de dar algo por terminado, corre dbt build y pytest y muestra la salida
 
 # Flujo
-- Una rama por tarea: feat/<RF-xx>-descripcion. PR hacia main, nunca push directo
+- Commit y push directo a master, sin ramas por tarea ni PRs
 - Cita el RF de la SPEC en cada commit
 - Las decisiones técnicas se registran en docs/decisiones/NNNN-titulo.md
