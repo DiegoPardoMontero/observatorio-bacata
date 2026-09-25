@@ -171,8 +171,12 @@ def test_guardar_bronze_escribe_parquet_particionado(df, tmp_path):
 
 @pytest.mark.red
 def test_fuente_real_cumple_el_contrato():
+    # CKAN no garantiza el orden de los recursos: se validan todos
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=120.0) as cliente:
-        recursos = listar_recursos(cliente)
-        contenido = cliente.get(recursos[0]["url"], follow_redirects=True).content
-    df = parsear(leer_geojson(contenido), recursos[0])
-    assert df["fecha_corte"].iloc[0] >= date(2026, 8, 31)
+        cortes = [
+            parsear(leer_geojson(cliente.get(r["url"], follow_redirects=True).content), r)[
+                "fecha_corte"
+            ].iloc[0]
+            for r in listar_recursos(cliente)
+        ]
+    assert max(cortes) >= date(2026, 8, 31)
