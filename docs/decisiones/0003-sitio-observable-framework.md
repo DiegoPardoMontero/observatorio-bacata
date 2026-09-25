@@ -43,6 +43,8 @@ La SPEC deja abierta la elección entre Observable Framework y Astro (§9) y pid
 
 `data/` no está en git, así que en GitHub Actions no hay Bronze. El workflow descarga agosto de 2026 del portal de la RMCAB (31 peticiones) y lo guarda en la caché de Actions con una llave fija. Si la caché expira tras 7 días sin uso, se vuelve a descargar. Así se prueba además lo que más importa para el cron horario de la SPEC: si GitHub Actions puede llegar al portal. Esto no reemplaza la decisión abierta entre R2 y Releases para guardar la historia entre corridas (SPEC §9).
 
+**Resultado de la primera corrida** (25 sep 2026, [run 36166210351](https://github.com/DiegoPardoMontero/observatorio-bacata/actions/runs/36166210351)): el portal respondió a GitHub Actions sin bloqueos ni errores. Los 31 días se bajaron en 2 min 38 s, con 19 estaciones cada uno. La corrida completa, del checkout a la publicación, tardó unos 4 minutos. El sitio quedó en https://diegopardomontero.github.io/observatorio-bacata/.
+
 ## Decisión
 
 Framework sirve para el Observatorio: se construyó la página completa con el sistema de diseño en un día, y los problemas encontrados tienen salida. La recomendación es seguir con Framework y no gastar otro día en Astro, salvo que las fichas por localidad o el mapa muestren un problema en la Fase 1.
