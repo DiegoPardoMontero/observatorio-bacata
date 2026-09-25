@@ -235,18 +235,34 @@ def guardar_bronze(df: pd.DataFrame, fecha_carga: date, dir_base: Path) -> Path:
     return destino
 
 
+def ya_guardado(hash_archivo: str, dir_base: Path) -> bool:
+    """Si ese mismo archivo ya está en Bronze, en cualquier fecha de carga."""
+    archivos = list(dir_base.glob("*/*.parquet"))
+    if not archivos:
+        return False
+    rutas = ", ".join(f"'{a.as_posix()}'" for a in archivos)
+    (n,) = duckdb.sql(
+        f"SELECT count(*) FROM read_parquet([{rutas}]) WHERE hash_archivo = ?", params=[hash_archivo]
+    ).fetchone()
+    return n > 0
+
+
 def extraer(dir_base: Path = DIR_BRONZE) -> list[Path]:
-    """Descarga, valida y guarda cada recurso GeoJSON. Falla en el primero que rompa el contrato."""
+    """Descarga, valida y guarda cada recurso GeoJSON. Falla en el primero que rompa el contrato.
+
+    Si un recurso no cambió desde la última carga (mismo hash), no se guarda otra copia:
+    el cron corre a diario y la fuente cambia una vez al mes (SPEC §7).
+    """
     fecha_carga = datetime.now(ZONA_BOGOTA).date()
     rutas = []
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=120.0) as cliente:
         for recurso in listar_recursos(cliente):
             contenido = _get(recurso["url"], cliente).content
-            df = parsear(
-                leer_geojson(contenido),
-                recurso,
-                hash_archivo=hashlib.sha256(contenido).hexdigest(),
-            )
+            hash_archivo = hashlib.sha256(contenido).hexdigest()
+            if ya_guardado(hash_archivo, dir_base):
+                print(f"{recurso['name']}: sin cambios, no se guarda")
+                continue
+            df = parsear(leer_geojson(contenido), recurso, hash_archivo=hash_archivo)
             ruta = guardar_bronze(df, fecha_carga, dir_base)
             rutas.append(ruta)
             print(f"{df['periodo_fuente'].iloc[0]}: {len(df)} filas -> {ruta}")

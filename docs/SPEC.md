@@ -146,7 +146,7 @@ GitHub Actions dispara todo con un cron. Como cada ejecución arranca desde cero
 | Transformación | dbt-core + dbt-duckdb | Tests, linaje y documentación gratis. Es el stack del día a día | SQL suelto en DuckDB |
 | Motor | DuckDB | Analítico, embebido y lee y escribe Parquet sin servidor | Polars |
 | Orquestación | GitHub Actions (cron) | Gratis e ilimitado en repositorios públicos | Prefect Cloud (free tier) |
-| Historia entre corridas | Cloudflare R2 o assets de GitHub Releases | Persistencia gratis sin base de datos | Rama `data` en el repo |
+| Historia entre corridas | Assets de GitHub Releases ([ADR 0004](decisiones/0004-historia-en-github-releases.md)) | Persistencia gratis sin base de datos ni secretos | Cloudflare R2 |
 | Sitio | Observable Framework (data loaders en Python, gráficos con Observable Plot) | Pensado para sitios de datos estáticos | Astro + ECharts |
 | Mapa | Polígonos GeoJSON dibujados en SVG, sin teselas | Sin proveedor de mapas ni costos. 20 polígonos pesan poco | MapLibre + OpenFreeMap |
 | Hosting | GitHub Pages | Gratis y en el mismo lugar que el código | Cloudflare Pages |
@@ -195,7 +195,7 @@ El riesgo técnico más alto es depender de extraer datos del portal RMCAB. El r
 **Decisiones abiertas**
 
 - [ ] ¿Pedir a la Secretaría de Ambiente acceso formal a datos horarios antes de construir el extractor?
-- [ ] ¿Cloudflare R2 o GitHub Releases para la historia entre corridas?
+- [x] ¿Cloudflare R2 o GitHub Releases para la historia entre corridas? GitHub Releases ([ADR 0004](decisiones/0004-historia-en-github-releases.md))
 - [ ] ¿Observable Framework o Astro para el sitio? Conviene una prueba de un día con cada uno
 - [ ] ¿Qué fuente de población por localidad se usa como oficial?
 - [ ] ¿Dominio propio (p. ej. bacata.co o similar) o subdominio gratuito al inicio?

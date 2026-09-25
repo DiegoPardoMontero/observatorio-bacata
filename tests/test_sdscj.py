@@ -180,3 +180,12 @@ def test_fuente_real_cumple_el_contrato():
             for r in listar_recursos(cliente)
         ]
     assert max(cortes) >= date(2026, 8, 31)
+
+
+def test_ya_guardado_detecta_el_mismo_archivo(df, tmp_path):
+    from extract.sdscj import ya_guardado
+
+    assert not ya_guardado("abc", tmp_path)
+    guardar_bronze(df.assign(hash_archivo="abc"), date(2026, 9, 25), tmp_path)
+    assert ya_guardado("abc", tmp_path)
+    assert not ya_guardado("otro", tmp_path)

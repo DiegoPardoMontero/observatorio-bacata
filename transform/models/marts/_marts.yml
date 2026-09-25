@@ -104,6 +104,16 @@ models:
       - name: fecha_corte_fuente
         data_tests: [not_null]
 
+  - name: estado_fuente
+    description: Una fila por fuente con su última extracción y su dato más reciente (RF-20).
+    columns:
+      - name: fuente_id
+        data_tests: [unique, not_null]
+      - name: ultima_extraccion
+        data_tests: [not_null]
+      - name: dato_mas_reciente
+        data_tests: [not_null]
+
 unit_tests:
   - name: nowcast_pondera_por_horas_hacia_atras
     description: >

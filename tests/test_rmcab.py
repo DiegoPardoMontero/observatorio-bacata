@@ -104,3 +104,17 @@ def test_portal_real_cumple_el_contrato():
     df = parsear_dia(contenido.decode("utf-8"), ayer)
     assert df["estacion_codigo"].nunique() >= 10
     assert "PM2.5" in set(df["parametro"])
+
+
+def test_fechas_recientes_incluye_ayer_en_la_madrugada():
+    from datetime import datetime, timezone
+
+    from extract.rmcab import fechas_recientes
+
+    # 02:30 en Bogotá = 07:30 UTC
+    madrugada = datetime(2026, 9, 25, 7, 30, tzinfo=timezone.utc)
+    assert fechas_recientes(madrugada) == [date(2026, 9, 24), date(2026, 9, 25)]
+    # 10:00 en Bogotá = 15:00 UTC
+    assert fechas_recientes(datetime(2026, 9, 25, 15, 0, tzinfo=timezone.utc)) == [date(2026, 9, 25)]
+    # 22:00 del 25 en Bogotá ya es 26 en UTC: sigue siendo el 25
+    assert fechas_recientes(datetime(2026, 9, 26, 3, 0, tzinfo=timezone.utc)) == [date(2026, 9, 25)]

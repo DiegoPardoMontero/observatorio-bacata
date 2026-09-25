@@ -8,6 +8,7 @@ docs/decisiones/0001-extraccion-rmcab.md.
 Uso:
     python -m extract.rmcab --fecha 2026-09-01
     python -m extract.rmcab --desde 2026-08-01 --hasta 2026-08-31
+    python -m extract.rmcab --recientes   # lo que usa el cron cada hora
 """
 
 from __future__ import annotations
@@ -187,7 +188,8 @@ def extraer(fechas: list[date], dir_base: Path = DIR_BRONZE, pausa: float = 3.0)
             ruta = guardar_bronze(df, fecha, fecha_carga, dir_base)
             rutas.append(ruta)
             print(
-                f"{fecha}: {len(df)} filas, {df['estacion_codigo'].nunique()} estaciones -> {ruta}"
+                f"{fecha}: {len(df)} filas, {df['estacion_codigo'].nunique()} estaciones -> {ruta}",
+                flush=True,
             )
     return rutas
 
@@ -196,15 +198,31 @@ def _rango(desde: date, hasta: date) -> list[date]:
     return [desde + timedelta(days=d) for d in range((hasta - desde).days + 1)]
 
 
+def fechas_recientes(ahora: datetime) -> list[date]:
+    """Hoy y, en la madrugada, también ayer.
+
+    La hora de 23:00 a 24:00 se publica como 00:00 del día siguiente, así que el
+    reporte de ayer se completa después de medianoche. Hasta las 4 a. m. se vuelve
+    a bajar para no perder las últimas horas.
+    """
+    hoy = ahora.astimezone(ZONA_BOGOTA)
+    return [hoy.date() - timedelta(days=1), hoy.date()] if hoy.hour < 4 else [hoy.date()]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extrae el reporte horario de la RMCAB a Bronze.")
     parser.add_argument("--fecha", type=date.fromisoformat, help="un día (por defecto, hoy en Bogotá)")
     parser.add_argument("--desde", type=date.fromisoformat, help="inicio de un rango de días")
     parser.add_argument("--hasta", type=date.fromisoformat, help="fin del rango (incluido)")
+    parser.add_argument("--recientes", action="store_true", help="hoy y, antes de las 4 a. m., también ayer")
     parser.add_argument("--salida", type=Path, default=DIR_BRONZE, help="carpeta Bronze de destino")
     args = parser.parse_args()
 
-    if args.desde or args.hasta:
+    if args.recientes:
+        if args.fecha or args.desde or args.hasta:
+            parser.error("--recientes no se combina con otras fechas")
+        fechas = fechas_recientes(datetime.now(timezone.utc))
+    elif args.desde or args.hasta:
         if not (args.desde and args.hasta) or args.fecha:
             parser.error("usa --desde y --hasta juntos, sin --fecha")
         fechas = _rango(args.desde, args.hasta)

@@ -1,0 +1,92 @@
+# Pipeline completo: extrae, transforma, prueba y publica el sitio en GitHub Pages.
+# Corre cada hora (aire, SPEC §7 y RNF-02), en cada push a master y a mano.
+# Si una prueba de dbt falla, no se publica y queda la versión anterior (RNF-07).
+name: Pipeline
+
+on:
+  schedule:
+    # Al minuto 23: a la hora en punto GitHub retrasa los cron, y la RMCAB publica
+    # la hora anterior con menos de media hora de retraso (ADR 0001)
+    - cron: "23 * * * *"
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write # subir la historia de Bronze a la release `bronze` (ADR 0004)
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar el paquete
+        run: pip install -e .
+
+      - name: Bajar la historia de Bronze
+        run: python -m extract.historia bajar
+
+      # Si una fuente falla, el sitio se publica igual con los datos que hay y avisa
+      # del retraso (SPEC §9). Por eso las extracciones no detienen el pipeline.
+      - name: Extraer la RMCAB (hoy y, de madrugada, también ayer)
+        id: rmcab
+        continue-on-error: true
+        run: python -m extract.rmcab --recientes
+
+      - name: Extraer Delito de Alto Impacto (una vez al día)
+        id: sdscj
+        continue-on-error: true
+        run: |
+          if [ "$(TZ=America/Bogota date +%H)" = "06" ] || [ "${{ github.event_name }}" != "schedule" ]; then
+            python -m extract.sdscj
+          fi
+
+      - name: Guardar la historia de Bronze
+        if: steps.rmcab.outcome == 'success' || steps.sdscj.outcome == 'success'
+        run: python -m extract.historia subir
+
+      - name: Transformar y probar (dbt)
+        run: make transform
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Construir el sitio
+        working-directory: site
+        run: |
+          npm ci
+          npm run build
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v5
