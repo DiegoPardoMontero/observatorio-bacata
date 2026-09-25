@@ -65,3 +65,8 @@ export function normalizar(texto) {
 export function conCodigo(fila) {
   return {...fila, localidad_id: String(fila.localidad_id).padStart(2, "0")};
 }
+
+/** ["a", "b", "c"] -> "a, b y c". */
+export function lista(xs) {
+  return xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} y ${xs.at(-1)}`;
+}

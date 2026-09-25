@@ -6,6 +6,9 @@ Sitio cívico de datos abiertos de Bogotá, por localidad. Especificación: @doc
 - make extract-<fuente>: corre un extractor (ej. make extract-rmcab FECHA=2026-09-01)
 - dbt build --project-dir transform --profiles-dir transform: modelos + tests (desde la raíz del repo)
 - pytest tests/: pruebas de extractores
+- make site: construye el sitio en site/dist (Observable Framework, lee data/gold)
+- python -m extract.historia bajar | subir: historia de Bronze en la release `bronze` (ADR 0004)
+- El pipeline de producción es .github/workflows/pipeline.yml (cada hora)
 
 # Reglas del proyecto
 - Todo en español: nombres de modelos, columnas y textos del sitio

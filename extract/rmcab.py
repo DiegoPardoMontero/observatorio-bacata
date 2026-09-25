@@ -203,10 +203,14 @@ def fechas_recientes(ahora: datetime) -> list[date]:
 
     La hora de 23:00 a 24:00 se publica como 00:00 del día siguiente, así que el
     reporte de ayer se completa después de medianoche. Hasta las 4 a. m. se vuelve
-    a bajar para no perder las últimas horas.
+    a bajar para no perder las últimas horas. Antes de la 1 a. m. el día nuevo
+    todavía no tiene ninguna hora publicada, así que solo se baja ayer.
     """
     hoy = ahora.astimezone(ZONA_BOGOTA)
-    return [hoy.date() - timedelta(days=1), hoy.date()] if hoy.hour < 4 else [hoy.date()]
+    ayer = hoy.date() - timedelta(days=1)
+    if hoy.hour == 0:
+        return [ayer]
+    return [ayer, hoy.date()] if hoy.hour < 4 else [hoy.date()]
 
 
 def main() -> None:

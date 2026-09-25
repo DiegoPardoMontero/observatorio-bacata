@@ -3,7 +3,7 @@ title: Los datos de tu localidad, claros y gratis
 ---
 
 ```js
-import {fecha, hora, numero, MESES_LARGOS, conCodigo} from "./components/formato.js";
+import {fecha, hora, numero, lista, MESES_LARGOS, conCodigo} from "./components/formato.js";
 import {tarjetaIndicador, tarjetaProximamente, icono} from "./components/ui.js";
 import {buscador} from "./components/buscador.js";
 
@@ -53,7 +53,7 @@ ${buscador(catalogo.localidades)}
     unidad: "µg/m³ de PM2.5",
     frase: `Promedio de la ciudad en ${MESES_LARGOS[actual.mes.getUTCMonth()]}, hasta el ${fecha(actual.corte)}. Cuanto más bajo, más limpio el aire.`,
     tendencia,
-    comparacion: resumenAhora.length ? `Ahora, a las ${hora(ultimaHora)}: ${resumenAhora.join(" y ")} según el IBOCA.` : null,
+    comparacion: resumenAhora.length ? `Ahora, a las ${hora(ultimaHora)}: ${lista(resumenAhora)} según el IBOCA.` : null,
     fuente: "RMCAB",
     corte: fecha(actual.corte),
     enlace: "./aire"

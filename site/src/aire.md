@@ -154,7 +154,7 @@ function graficoSemana(width) {
 
 ### Promedio de cada día
 
-<p>${diasConPromedio.length === 0 ? "Esta estación no tiene días con suficientes horas válidas." : `Desde el ${fecha(diasConPromedio[0].fecha)}, ${estacion.nombre} tiene ${diasConPromedio.length} días con promedio. El más alto fue el ${fecha(maximo.fecha)}, con ${numero(maximo.pm25)} µg/m³. ${sobreNorma === 0 ? `Ningún día pasó el límite diario de la norma colombiana (${LIMITE_NORMA} µg/m³)` : `${sobreNorma === 1 ? "Un día pasó" : `${sobreNorma} días pasaron`} el límite diario de la norma colombiana (${LIMITE_NORMA} µg/m³)`}, y ${sobreOms === 1 ? "un día pasó" : `${sobreOms} días pasaron`} la guía de la OMS (${GUIA_OMS} µg/m³).`}</p>
+<p>${diasConPromedio.length === 0 ? "Esta estación no tiene días con suficientes horas válidas." : `Desde el ${fecha(diasConPromedio[0].fecha)}, ${estacion.nombre} tiene ${diasConPromedio.length} días con promedio. El más alto fue el ${fecha(maximo.fecha)}, con ${numero(maximo.pm25)} µg/m³. ${sobreNorma === 0 ? `Ningún día pasó el límite diario de la norma colombiana (${LIMITE_NORMA} µg/m³)` : `${sobreNorma === 1 ? "Un día pasó" : `${sobreNorma} días pasaron`} el límite diario de la norma colombiana (${LIMITE_NORMA} µg/m³)`}, y ${sobreOms === 0 ? "ninguno pasó" : sobreOms === 1 ? "un día pasó" : `${sobreOms} días pasaron`} la guía de la OMS (${GUIA_OMS} µg/m³).`}</p>
 
 <ul class="leyenda-referencias" aria-label="Qué muestra cada línea">
   <li><span class="clave-linea" aria-hidden="true"></span>Promedio diario de PM2.5</li>

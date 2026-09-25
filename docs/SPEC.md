@@ -196,11 +196,11 @@ El riesgo técnico más alto es depender de extraer datos del portal RMCAB. El r
 
 - [ ] ¿Pedir a la Secretaría de Ambiente acceso formal a datos horarios antes de construir el extractor?
 - [x] ¿Cloudflare R2 o GitHub Releases para la historia entre corridas? GitHub Releases ([ADR 0004](decisiones/0004-historia-en-github-releases.md))
-- [ ] ¿Observable Framework o Astro para el sitio? Conviene una prueba de un día con cada uno
+- [x] ¿Observable Framework o Astro para el sitio? Observable Framework ([ADR 0003](decisiones/0003-sitio-observable-framework.md))
 - [ ] ¿Qué fuente de población por localidad se usa como oficial?
 - [ ] ¿Dominio propio (p. ej. bacata.co o similar) o subdominio gratuito al inicio?
 - [ ] ¿Cómo se diferencia de observatorios que ya existen, como el de la Secretaría de Movilidad? Propuesta: la vista cruzada de los cuatro temas por localidad
-- [ ] ¿Aire o seguridad como primer tema publicado?
+- [x] ¿Aire o seguridad como primer tema publicado? Aire: seguridad necesita población por localidad y su fuente tiene inconsistencias ([ADR 0002](decisiones/0002-extraccion-delito-alto-impacto.md))
 
 ## 10. Roadmap y siguientes pasos
 

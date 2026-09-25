@@ -1,6 +1,6 @@
 # 0003 — Prueba del sitio con Observable Framework
 
-- **Estado:** propuesta (prueba de la Fase 0; falta decidir si se prueba Astro)
+- **Estado:** aceptada (25 sep 2026: el sitio completo de la Fase 1b se construyó sobre Framework, incluidas las 20 fichas con un page loader y el mapa en SVG)
 - **Fecha:** 2026-09-25
 - **Requerimientos:** RF-09, RF-17, RF-19, RNF-03, RNF-04, RNF-05, RNF-06
 

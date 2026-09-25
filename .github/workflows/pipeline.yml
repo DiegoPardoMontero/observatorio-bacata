@@ -63,6 +63,12 @@ jobs:
       - name: Transformar y probar (dbt)
         run: make transform
 
+      # Frescura de las fuentes (RNF-07). Solo informa: si una fuente se retrasa, el
+      # sitio se publica igual y muestra el aviso de retraso (página de estado)
+      - name: Revisar la frescura de las fuentes
+        continue-on-error: true
+        run: dbt source freshness --project-dir transform --profiles-dir transform
+
       - uses: actions/setup-node@v7
         with:
           node-version: 22

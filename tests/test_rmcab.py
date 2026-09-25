@@ -114,6 +114,8 @@ def test_fechas_recientes_incluye_ayer_en_la_madrugada():
     # 02:30 en Bogotá = 07:30 UTC
     madrugada = datetime(2026, 9, 25, 7, 30, tzinfo=timezone.utc)
     assert fechas_recientes(madrugada) == [date(2026, 9, 24), date(2026, 9, 25)]
+    # 00:23 en Bogotá = 05:23 UTC: el día nuevo todavía no tiene horas
+    assert fechas_recientes(datetime(2026, 9, 25, 5, 23, tzinfo=timezone.utc)) == [date(2026, 9, 24)]
     # 10:00 en Bogotá = 15:00 UTC
     assert fechas_recientes(datetime(2026, 9, 25, 15, 0, tzinfo=timezone.utc)) == [date(2026, 9, 25)]
     # 22:00 del 25 en Bogotá ya es 26 en UTC: sigue siendo el 25

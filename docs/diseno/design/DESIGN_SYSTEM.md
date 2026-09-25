@@ -42,3 +42,6 @@ No se entregó logotipo; el nombre se compone en tipo ("Observatorio" en versali
 
 ## Intentional additions
 - Los cuatro componentes pedidos. No se añadieron más; botones, campos, tablas y diálogos vienen de la base Classical (`.btn`, `.input`, `.table`, `.dialog`).
+
+## Excepción: colores del IBOCA
+El IBOCA es el índice oficial de calidad del aire de Bogotá, y la Resolución conjunta 2840 de 2023 (Tabla 2) fija sus colores: verde, amarillo, naranja, rojo y morado. Es el código que la ciudadanía ya ve en la Secretaría de Ambiente y en los medios, así que en el Observatorio el IBOCA usa esos colores y no la paleta de Bacatá. Para que no dependa del color ni del eje rojo–verde, la categoría va **siempre escrita** ("Moderado") y el color aparece solo en una muestra pequeña con borde (`.iboca-muestra`), nunca como texto ni como relleno grande. La excepción aplica solo al IBOCA; el resto de datos de aire usa las paletas de Bacatá. Pendiente de aprobación del dueño del sistema de diseño (25 sep 2026).
