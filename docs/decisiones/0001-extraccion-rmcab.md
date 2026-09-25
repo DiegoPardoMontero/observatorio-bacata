@@ -16,7 +16,8 @@ La RMCAB no tiene API ni exportación documentada (SPEC §4), y depender de su p
 - Trae las 19 estaciones del portal (la SPEC habla de 20), dos de ellas móviles (Móvil 7ma y Móvil Fontibón), con todos sus monitores: 27 parámetros en agosto de 2026 entre contaminantes, meteorología y carbono negro.
 - La tabla visible no sirve: redondea los valores y no trae el estado del dato. Los datos completos están en el `onclick` de cada casilla del gráfico: `graph('<estación>', …, '<datos JSON>', <catálogo JSON>, '<canal>', '<unidad>', …)`. Cada registro es `{"DATE_TIME": …, "<PARÁMETRO>": valor, "STATUS<canal>": código}`, y el catálogo trae el nombre de la estación, la unidad y la regla de completitud (`PctValid: 75`).
 - **El canal no identifica el parámetro.** El canal 18 es PM2.5 en Centro de Alto Rendimiento y ozono en Guaymaral. El parámetro sale de la llave del valor.
-- **Cada hora se marca por su final:** `01:00` es el promedio de 00:00 a 01:00, y la hora 24 aparece como `00:00` del día siguiente. Todo va en hora de Bogotá (UTC−5, sin horario de verano).
+- **Cada hora se marca por su final:** `01:00` es el promedio de 00:00 a 01:00, y la hora 24 aparece como `00:00` del día siguiente. Todo va en hora de Bogotá (UTC−5, sin horario de verano). Lo confirma la radiación solar de agosto: empieza con la hora marcada `07:00` (44 W/m²), llega al máximo con la marcada `13:00` (535 W/m²) y se apaga con la marcada `18:00` (51 W/m²). Si el portal usara UTC, el pico caería hacia las 17:00-18:00.
+- **Retraso de publicación:** el 25 de septiembre a las 10:26 de Bogotá, la hora marcada `10:00` (de 09:00 a 10:00) ya estaba publicada y era válida. El retraso es de menos de media hora.
 - **Los faltantes vienen de tres formas:** la fila no existe (en Jazmín, el 15 de agosto no hay filas de 14:00 a 18:00), el valor es `-9999`, o el código de estado no es válido.
 - **Estados:** la página incluye `StatusDic`, que dice qué códigos muestra el portal (`true`) y cuáles oculta. Los códigos `true` son 1, 14, 29–34, 77–83, 85, 86, 89 y 93–95. En agosto de 2026 aparecieron: 1 (171.436 filas), 0 (13.325), 4 (3.467), 18 (906), 9 (751), 109 (610), 3 (469) y 8 (4). De esos, solo el 1 es válido. Todos los `-9999` tienen un estado no válido (casi siempre 0; en 11 casos, 4 u 8). No sabemos qué significa cada código.
 - `robots.txt` no existe (404).
@@ -51,7 +52,7 @@ Casi todas las estaciones superan el 96 % de horas válidas de PM2.5. Las excepc
 
 ## Consecuencias
 
-- Aire es viable como primer tema: con una petición por hora del día en curso se puede cumplir la frescura de RNF-02, aunque falta medir con cuánto retraso aparece la hora más reciente.
+- Aire es viable como primer tema: el portal publica cada hora con menos de 30 minutos de retraso, así que una petición por hora del día en curso cumple de sobra la frescura de RNF-02 (máximo 3 h). Falta confirmarlo en más de una medición.
 - La extracción es frágil: depende de detalles del HTML (el `onclick`, la función `graph`, `StatusDic`). Si el proveedor cambia la página, la prueba de contrato falla en vez de guardar datos malos.
 - Para Silver quedan estas reglas: válido = `estado_valido_portal`; `-9999` pasa a nulo; `fecha_hora_fuente` se convierte a inicio de hora en hora de Bogotá; se deduplica entre cargas (el mismo día se recarga varias veces); y los promedios diarios usan la regla de completitud del 75 % (`PctValid`).
 - Cada petición baja unos 8 MB, así que una por hora suma unos 190 MB al día. Es aceptable en GitHub Actions.
@@ -62,4 +63,3 @@ Casi todas las estaciones superan el 96 % de horas válidas de PM2.5. Las excepc
 - Confirmar la licencia de los datos.
 - Averiguar qué significa cada código de estado (0, 3, 4, 8, 9, 18 y 109).
 - Aclarar por qué el portal muestra 19 estaciones y la SPEC dice 20.
-- Medir con qué retraso publica el portal la hora más reciente.
