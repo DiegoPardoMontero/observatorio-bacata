@@ -1,0 +1,18 @@
+[project]
+name = "observatorio-bacata"
+version = "0.1.0"
+description = "Datos abiertos de Bogotá, claros y por localidad"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx",
+    "pandas",
+    "duckdb",
+    "dbt-duckdb",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
