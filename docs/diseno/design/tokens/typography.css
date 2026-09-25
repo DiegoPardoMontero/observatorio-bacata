@@ -1,0 +1,22 @@
+:root {
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-heading-weight: 600;
+  --font-display-weight: 400;
+
+  /* Escala móvil — el cuerpo sube a 16px para leer en el celular y evitar el zoom de iOS en campos */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-num-md: 32px;
+  --text-num-lg: 48px;
+  --leading-body: 1.55;
+  --leading-tight: 1.12;
+
+  /* Cifras: siempre tabulares y de caja alta en datos; la prosa conserva sus cifras de texto */
+  --numeric: tabular-nums lining-nums;
+}
+.num, .tnum { font-variant-numeric: tabular-nums lining-nums; font-feature-settings: "tnum", "lnum"; }

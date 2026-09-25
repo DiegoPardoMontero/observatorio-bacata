@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="styles.css">
+<style>body{margin:0;background:var(--color-surface)} a{color:var(--color-oro-text)} a:hover{color:var(--color-oro-600)}</style>
+</helmet>
+<section data-screen-label="Portada" style="display:flex;flex-direction:column;gap:24px;padding:48px">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <h2 style="font-weight:400;margin:0">Portada — RF-01 y RF-02</h2>
+    <p style="margin:0;font-size:14px;color:var(--color-text-muted)">Buscador de localidad arriba · 4 indicadores de toda Bogotá · acceso al mapa. Escribe en el buscador para ver las sugerencias.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+    <div id="1a" style="display:flex;flex-direction:column;gap:10px">
+      <span style="align-self:flex-start;font-size:12px;padding:2px 8px;border:1px solid var(--color-oro);color:var(--color-oro-text);border-radius:var(--radius-sm)">1a · Móvil 360</span>
+      <div data-screen-label="Portada móvil" style="width:360px;background:var(--color-bg);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm)">
+        <header class="nav" style="padding:14px var(--page-gutter)">
+          <a href="#" class="nav-brand" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;color:var(--color-text)"><span style="font-family:var(--font-body);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-oro-text);font-weight:400">Observatorio</span><span style="font-size:24px;font-weight:400">Bacatá</span></a>
+          <a href="#" style="font-size:14px;min-height:44px;display:flex;align-items:center">Metodología</a>
+        </header>
+        <main style="display:flex;flex-direction:column;gap:var(--space-6);padding:var(--space-4) var(--page-gutter) var(--space-8)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <h1 style="font-weight:400;font-size:30px;line-height:1.08;margin:0;text-wrap:pretty">Los datos de tu barrio, claros y gratis</h1>
+            <div style="display:flex;flex-direction:column;gap:6px;position:relative">
+              <label for="q-m" style="font-size:14px;color:var(--color-text-muted)">Busca tu localidad</label>
+              <div class="loc-control">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <input id="q-m" type="search" autocomplete="off" placeholder="Ej.: Kennedy, Suba…" value="{{ qm }}" onChange="{{ onQm }}" style="width:100%;min-height:48px;padding:0 14px 0 44px;border:0;background:transparent;font:inherit;font-size:16px;color:var(--color-text);outline:none">
+              </div>
+              <sc-if value="{{ hasQm }}" hint-placeholder-val="{{ false }}">
+                <ul role="listbox" style="list-style:none;margin:0;padding:0;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--color-bg);box-shadow:var(--shadow-md)">
+                  <sc-for list="{{ sugM }}" as="s" hint-placeholder-count="3">
+                    <li><a href="ui_kits/movil/index.html" style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 14px;border-bottom:1px solid var(--color-divider);text-decoration:none;color:var(--color-text);font-size:16px" style-hover="background:var(--color-oro-100)"><span>{{ s.name }}</span><span class="tnum" style="font-size:12px;color:var(--color-text-muted)">Localidad {{ s.n }}</span></a></li>
+                  </sc-for>
+                  <sc-if value="{{ noneM }}" hint-placeholder-val="{{ false }}"><li style="padding:12px 14px;font-size:14px;color:var(--color-text-muted)">No encontramos esa localidad. Prueba con otro nombre.</li></sc-if>
+                </ul>
+              </sc-if>
+            </div>
+          </div>
+
+          <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--color-divider);padding-bottom:6px">
+              <h2 style="font-size:22px;margin:0">Toda Bogotá</h2>
+              <span style="font-size:12px;color:var(--color-text-muted)">4 temas</span>
+            </div>
+            <article class="ind">
+              <header class="ind-head"><span class="ind-kicker" style="display:inline-flex;align-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path><path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path></svg>Aire</span></header>
+              <h3 class="ind-title">Partículas finas en el aire</h3>
+              <div class="ind-value"><span class="ind-num">18</span><span class="ind-unit">µg/m³ de PM2.5</span></div>
+              <p class="ind-compare" style="color:var(--color-text)">Promedio de la ciudad. Cuanto más bajo, más limpio el aire.</p>
+              <footer class="ind-meta"><span>Fuente: <b>RMCAB</b></span><span>Corte: <span class="tnum">24 sep 2026</span></span></footer>
+            </article>
+            <article class="ind" data-state="soon" style="flex-direction:row;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4)">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--color-text-muted)"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>
+              <div style="flex:1;display:flex;flex-direction:column;gap:2px"><span class="ind-kicker" style="color:var(--color-text-muted)">Movilidad</span><span style="font-size:14px">Tiempos de viaje</span></div>
+              <span class="ind-soon">Próximamente</span>
+            </article>
+            <article class="ind" data-state="soon" style="flex-direction:row;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4)">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--color-text-muted)"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+              <div style="flex:1;display:flex;flex-direction:column;gap:2px"><span class="ind-kicker" style="color:var(--color-text-muted)">Seguridad</span><span style="font-size:14px">Convivencia y seguridad</span></div>
+              <span class="ind-soon">Próximamente</span>
+            </article>
+            <article class="ind" data-state="soon" style="flex-direction:row;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4)">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--color-text-muted)"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>
+              <div style="flex:1;display:flex;flex-direction:column;gap:2px"><span class="ind-kicker" style="color:var(--color-text-muted)">Costo de vida</span><span style="font-size:14px">Precios del hogar</span></div>
+              <span class="ind-soon">Próximamente</span>
+            </article>
+          </section>
+
+          <a href="#" style="display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-oro);border-radius:var(--radius-md);text-decoration:none;color:var(--color-text)" style-hover="background:var(--color-oro-100)">
+            <div style="display:flex;align-items:center;gap:10px;color:var(--color-oro-text)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></svg><span style="font-family:var(--font-heading);font-weight:600;font-size:20px;flex:1;color:var(--color-text)">Ver el mapa</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div>
+            <span style="font-size:14px;color:var(--color-text-muted)">Compara las 20 localidades de un vistazo.</span>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);height:8px"><span style="background:var(--data-seq-2)"></span><span style="background:var(--data-seq-3)"></span><span style="background:var(--data-seq-4)"></span><span style="background:var(--data-seq-5)"></span><span style="background:var(--data-seq-6)"></span></div>
+          </a>
+        </main>
+        <footer style="padding:var(--space-4) var(--page-gutter);border-top:1px solid var(--color-divider);font-size:12px;color:var(--color-text-muted);display:flex;flex-direction:column;gap:4px">
+          <span>Datos abiertos de Bogotá · Sitio gratuito</span><span>Cifras de ejemplo.</span>
+        </footer>
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column;gap:10px">
+      <span style="align-self:flex-start;font-size:12px;padding:2px 8px;border:1px solid var(--color-oro);color:var(--color-oro-text);border-radius:var(--radius-sm)">1b · Escritorio 1280</span>
+      <div data-screen-label="Portada escritorio" style="width:1280px;background:var(--color-bg);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm)">
+        <header class="nav" style="padding:18px 64px">
+          <a href="#" class="nav-brand" style="display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--color-text)"><span style="font-family:var(--font-body);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-oro-text);font-weight:400">Observatorio</span><span style="font-size:28px;font-weight:400;line-height:1">Bacatá</span></a>
+          <a href="#" style="font-size:15px">Mapa</a>
+          <a href="#" style="font-size:15px">Localidades</a>
+          <a href="#" style="font-size:15px">Metodología</a>
+        </header>
+        <main style="display:flex;flex-direction:column;gap:56px;padding:56px 64px 64px">
+          <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:64px;align-items:end">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <h1 style="font-weight:400;font-size:56px;line-height:1.02;margin:0;text-wrap:pretty">Los datos de tu barrio, claros y gratis</h1>
+              <p style="margin:0;font-size:17px;max-width:30em;color:var(--color-text-muted)">Cifras públicas de Bogotá, contadas localidad por localidad. Cada dato dice de dónde viene y hasta qué fecha llega.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;position:relative">
+              <label for="q-d" style="font-size:14px;color:var(--color-text-muted)">Busca tu localidad</label>
+              <div class="loc-control" style="min-height:56px">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <input id="q-d" type="search" autocomplete="off" placeholder="Ej.: Kennedy, Suba, Chapinero…" value="{{ qd }}" onChange="{{ onQd }}" style="width:100%;min-height:56px;padding:0 16px 0 44px;border:0;background:transparent;font:inherit;font-size:18px;color:var(--color-text);outline:none">
+              </div>
+              <sc-if value="{{ hasQd }}" hint-placeholder-val="{{ false }}">
+                <ul role="listbox" style="position:absolute;top:100%;left:0;right:0;margin:6px 0 0;padding:0;list-style:none;z-index:2;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--color-bg);box-shadow:var(--shadow-md)">
+                  <sc-for list="{{ sugD }}" as="s" hint-placeholder-count="3">
+                    <li><a href="ui_kits/movil/index.html" style="display:flex;justify-content:space-between;align-items:center;min-height:44px;padding:0 16px;border-bottom:1px solid var(--color-divider);text-decoration:none;color:var(--color-text);font-size:16px" style-hover="background:var(--color-oro-100)"><span>{{ s.name }}</span><span class="tnum" style="font-size:12px;color:var(--color-text-muted)">Localidad {{ s.n }}</span></a></li>
+                  </sc-for>
+                  <sc-if value="{{ noneD }}" hint-placeholder-val="{{ false }}"><li style="padding:12px 16px;font-size:14px;color:var(--color-text-muted)">No encontramos esa localidad. Prueba con otro nombre.</li></sc-if>
+                </ul>
+              </sc-if>
+              <p style="margin:4px 0 0;font-size:13px;color:var(--color-text-muted)">O <a href="#">elige en el mapa</a> entre las 20 localidades.</p>
+            </div>
+          </div>
+
+          <section style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--color-divider);padding-bottom:8px">
+              <h2 style="font-size:28px;margin:0">Toda Bogotá</h2>
+              <span style="font-size:13px;color:var(--color-text-muted)">Más temas en camino</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);align-items:stretch">
+              <article class="ind">
+                <header class="ind-head"><span class="ind-kicker" style="display:inline-flex;align-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path><path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path></svg>Aire</span></header>
+                <h3 class="ind-title">Partículas finas en el aire</h3>
+                <div class="ind-value"><span class="ind-num">18</span><span class="ind-unit">µg/m³ de PM2.5</span></div>
+                <p class="ind-compare" style="color:var(--color-text);flex:1">Promedio de la ciudad. Cuanto más bajo, más limpio el aire.</p>
+                <footer class="ind-meta"><span>Fuente: <b>RMCAB</b></span><span>Corte: <span class="tnum">24 sep 2026</span></span></footer>
+              </article>
+              <article class="ind" data-state="soon">
+                <header class="ind-head"><span class="ind-kicker" style="display:inline-flex;align-items:center;gap:6px;color:var(--color-text-muted)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>Movilidad</span></header>
+                <h3 class="ind-title" style="color:var(--color-text-muted)">Tiempos de viaje</h3>
+                <span class="ind-soon">Próximamente</span>
+                <p class="ind-compare" style="flex:1">Cuánto tardamos en llegar al trabajo o al estudio.</p>
+              </article>
+              <article class="ind" data-state="soon">
+                <header class="ind-head"><span class="ind-kicker" style="display:inline-flex;align-items:center;gap:6px;color:var(--color-text-muted)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Seguridad</span></header>
+                <h3 class="ind-title" style="color:var(--color-text-muted)">Convivencia y seguridad</h3>
+                <span class="ind-soon">Próximamente</span>
+                <p class="ind-compare" style="flex:1">Reportes de convivencia en cada localidad.</p>
+              </article>
+              <article class="ind" data-state="soon">
+                <header class="ind-head"><span class="ind-kicker" style="display:inline-flex;align-items:center;gap:6px;color:var(--color-text-muted)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>Costo de vida</span></header>
+                <h3 class="ind-title" style="color:var(--color-text-muted)">Precios del hogar</h3>
+                <span class="ind-soon">Próximamente</span>
+                <p class="ind-compare" style="flex:1">Lo que cuesta vivir en tu zona.</p>
+              </article>
+            </div>
+          </section>
+
+          <a href="#" style="display:grid;grid-template-columns:auto minmax(0,1fr) 320px auto;gap:32px;align-items:center;padding:28px 32px;border:1px solid var(--color-oro);border-radius:var(--radius-md);text-decoration:none;color:var(--color-text)" style-hover="background:var(--color-oro-100)">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:32px;height:32px;color:var(--color-oro-text);stroke-width:1.5"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></svg>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-heading);font-weight:600;font-size:26px;line-height:1.1">Ver el mapa de las 20 localidades</span><span style="font-size:15px;color:var(--color-text-muted)">Compara tu localidad con las demás de un vistazo.</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="display:grid;grid-template-columns:repeat(5,1fr);height:12px;border:1px solid var(--color-divider)"><span style="background:var(--data-seq-2)"></span><span style="background:var(--data-seq-3)"></span><span style="background:var(--data-seq-4)"></span><span style="background:var(--data-seq-5)"></span><span style="background:var(--data-seq-6)"></span></div><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-muted)"><span>Menos</span><span>Más</span></div></div>
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;color:var(--color-oro-text)"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </main>
+        <footer style="display:flex;justify-content:space-between;padding:20px 64px;border-top:1px solid var(--color-divider);font-size:13px;color:var(--color-text-muted)">
+          <span>Datos abiertos de Bogotá · Sitio gratuito</span><span>Cifras de ejemplo.</span>
+        </footer>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const LOCS = ['Usaquén','Chapinero','Santa Fe','San Cristóbal','Usme','Tunjuelito','Bosa','Kennedy','Fontibón','Engativá','Suba','Barrios Unidos','Teusaquillo','Los Mártires','Antonio Nariño','Puente Aranda','La Candelaria','Rafael Uribe Uribe','Ciudad Bolívar','Sumapaz'];
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+const match = q => {
+  const n = norm(q);
+  return LOCS.map((name, i) => ({ name, n: String(i + 1).padStart(2, '0') }))
+    .filter(l => norm(l.name).includes(n)).slice(0, 5);
+};
+class Component extends DCLogic {
+  state = { qm: '', qd: '' };
+  renderVals() {
+    const { qm, qd } = this.state;
+    const sugM = qm.trim() ? match(qm) : [];
+    const sugD = qd.trim() ? match(qd) : [];
+    return {
+      qm, qd, sugM, sugD,
+      hasQm: !!qm.trim(), hasQd: !!qd.trim(),
+      noneM: !!qm.trim() && !sugM.length, noneD: !!qd.trim() && !sugD.length,
+      onQm: e => this.setState({ qm: e.target.value }),
+      onQd: e => this.setState({ qd: e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>

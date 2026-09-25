@@ -1,0 +1,32 @@
+/* Paletas de datos. Ambas mantienen luminosidad monótona y evitan el eje rojo–verde:
+   legibles con protanopia, deuteranopia y tritanopia, y en escala de grises. */
+:root {
+  /* Secuencial «Sabana»: páramo claro → sabana → cerro en niebla */
+  --data-seq-1: #f4ecc8;
+  --data-seq-2: #d9dc9b;
+  --data-seq-3: #a9c486;
+  --data-seq-4: #74a67a;
+  --data-seq-5: #3f7a6c;
+  --data-seq-6: #2c5f66;
+  --data-seq-7: #1f4256;
+
+  /* Divergente «Oro–Cerro»: oro (por debajo) · piedra (referencia) · azul cerro (por encima) */
+  --data-div-n3: #6e4a10;
+  --data-div-n2: #b68235;
+  --data-div-n1: #e3c48e;
+  --data-div-0:  #ebe7e0;
+  --data-div-p1: #a9c7d3;
+  --data-div-p2: #5a8fa8;
+  --data-div-p3: #24506b;
+
+  /* Sin dato: piedra rayada, nunca un color de la escala */
+  --data-nodata: #d7d3d3;
+  --data-nodata-pattern: repeating-linear-gradient(45deg, #d7d3d3 0 3px, #f3f2f2 3px 6px);
+
+  /* Texto sobre relleno de datos (≥ 4.5:1): claro en seq-5…7, div-n3, div-p3 */
+  --data-on-light: #201f1d;
+  --data-on-dark: #ffffff;
+
+  /* Resalte de la localidad elegida en mapa y listas */
+  --data-highlight: var(--color-oro);
+}

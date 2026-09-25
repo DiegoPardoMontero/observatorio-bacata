@@ -1,0 +1,73 @@
+/* Componentes de Bacatá sobre la base Classical. */
+body { font-size: var(--text-base); }
+.text-muted, figcaption { color: var(--color-text-muted); }
+a { color: var(--text-link); }
+a:hover { color: var(--color-oro-600); }
+.ico { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+/* — Tarjeta de indicador — */
+.ind { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4);
+  background: var(--surface-card); border: 1px solid var(--color-divider); border-radius: var(--radius-md); }
+.ind-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); }
+.ind-kicker { font-size: var(--text-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--color-oro-text); }
+.ind-loc { font-size: var(--text-xs); color: var(--color-text-muted); }
+.ind-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--text-xl); line-height: 1.15; margin: 0; text-wrap: pretty; }
+.ind-value { display: flex; align-items: baseline; gap: 6px; margin-top: var(--space-1); }
+.ind-num { font-family: var(--font-heading); font-weight: var(--font-display-weight); font-size: var(--text-num-lg); line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums; letter-spacing: -.01em; }
+.ind-unit { font-size: var(--text-sm); color: var(--color-text-muted); }
+.ind-trend { display: flex; align-items: center; gap: 6px; margin: 0; font-size: var(--text-sm); color: var(--trend-text); }
+.ind-compare { margin: 0; font-size: var(--text-sm); color: var(--color-text-muted); }
+.ind-meta { display: flex; flex-wrap: wrap; gap: 2px var(--space-3); margin-top: var(--space-2); padding-top: var(--space-2);
+  border-top: 1px solid var(--color-divider); font-size: var(--text-xs); color: var(--color-text-muted); }
+.ind-meta .tnum, .ind-trend .tnum, .notice-body .tnum { font-variant-numeric: tabular-nums lining-nums; }
+.ind-meta b { font-weight: 600; color: var(--color-text); }
+.ind-flag { display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; font-size: var(--text-xs);
+  padding: 3px 8px; border-radius: var(--radius-sm); border: 1px solid var(--status-delay-border); color: var(--status-delay-text); }
+.ind-flag .ico { width: 14px; height: 14px; }
+
+.ind[data-state="soon"] { border-style: dashed; }
+.ind-soon { display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; font-size: var(--text-xs);
+  padding: 3px 8px; border-radius: var(--radius-sm); border: 1px solid var(--color-border-strong); color: var(--color-text-muted); }
+.ind-soon .ico { width: 14px; height: 14px; }
+
+/* — Leyenda de mapa — */
+.legend { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md); background: var(--color-bg); max-width: 360px; }
+.legend-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--text-lg); line-height: 1.2; margin: 0; }
+.legend-unit { font-size: var(--text-xs); color: var(--color-text-muted); margin: -4px 0 0; }
+.legend-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; height: 14px; border: 1px solid var(--color-divider); }
+.legend-ticks { display: flex; justify-content: space-between; font-size: var(--text-xs); font-variant-numeric: tabular-nums lining-nums; color: var(--color-text); }
+.legend-ends { display: flex; justify-content: space-between; gap: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
+.legend-extra { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); padding-top: var(--space-2); border-top: 1px solid var(--color-divider); }
+.legend-key { display: inline-flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 14px; height: 14px; border: 1px solid var(--color-border-strong); }
+.legend-swatch.is-nodata { background: var(--data-nodata-pattern); }
+.legend-swatch.is-selected { background: transparent; border: 2px solid var(--data-highlight); }
+
+/* — Selector de localidad — */
+.loc { display: flex; flex-direction: column; gap: 6px; }
+.loc-label { font-size: var(--text-sm); color: var(--color-text-muted); }
+.loc-control { position: relative; display: flex; align-items: center; min-height: var(--tap-min);
+  border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-bg); }
+.loc-control:hover { border-color: var(--color-oro); }
+.loc-control:focus-within { outline: 2px solid var(--color-oro); outline-offset: 2px; }
+.loc-control > .ico { position: absolute; pointer-events: none; color: var(--color-oro-text); }
+.loc-control > .ico:first-child { left: 14px; }
+.loc-control > .ico:last-child { right: 14px; color: var(--color-text-muted); }
+.loc-select { appearance: none; -webkit-appearance: none; width: 100%; min-height: var(--tap-min); padding: 0 44px;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--text-xl); color: var(--color-text);
+  background: transparent; border: 0; cursor: pointer; }
+.loc-select:focus { outline: none; }
+.loc-hint { font-size: var(--text-xs); color: var(--color-text-muted); margin: 0; }
+
+/* — Aviso de datos retrasados — */
+.notice { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-3); padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--status-delay-border); border-radius: var(--radius-md); background: var(--status-delay-bg); color: var(--color-text); }
+.notice > .ico { margin-top: 3px; color: var(--status-delay-text); }
+.notice[data-tone="info"] { border-color: var(--status-info-border); background: var(--status-info-bg); }
+.notice[data-tone="info"] > .ico { color: var(--status-info-text); }
+.notice-title { margin: 0; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--text-lg); line-height: 1.2; }
+.notice-body { margin: 2px 0 0; font-size: var(--text-sm); line-height: 1.5; }
+.notice-link { display: inline-block; margin-top: 6px; font-size: var(--text-sm); color: var(--status-delay-text); }
+.notice[data-tone="info"] .notice-link { color: var(--status-info-text); }

@@ -1,0 +1,62 @@
+<!-- @dsCard group="Móvil" viewport="390x844" name="Ficha de localidad" subtitle="Vista principal en el celular" -->
+<!-- @startingPoint section="Pantallas" subtitle="Ficha de localidad en móvil" viewport="390x844" -->
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Observatorio Bacatá — Ficha de localidad</title><link rel="stylesheet" href="../../styles.css"></head>
+<body style="margin:0">
+<div style="max-width:430px;margin:0 auto;min-height:100vh;border-inline:1px solid var(--color-divider)">
+<header class="nav" style="padding:14px var(--page-gutter)"><span class="nav-brand" style="display:flex;flex-direction:column;line-height:1"><span style="font-family:var(--font-body);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-oro-text);font-weight:400">Observatorio</span><span style="font-size:24px;font-weight:400">Bacatá</span></span><a href="#" style="font-size:14px">Metodología</a></header>
+<main style="padding:var(--space-4) var(--page-gutter) var(--space-8);display:flex;flex-direction:column;gap:var(--space-4)">
+  <div class="loc"><label class="loc-label" for="loc">Localidad</label><div class="loc-control"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><select id="loc" class="loc-select"></select><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div></div>
+  <h1 id="h" style="font-weight:400;font-size:var(--text-2xl);margin:0;text-wrap:pretty"></h1>
+  <article class="ind">
+    <header class="ind-head"><span class="ind-kicker">Ambiente</span><span class="ind-loc" data-l></span></header>
+    <h3 class="ind-title">Árboles por cada 1.000 habitantes</h3>
+    <div class="ind-value"><span class="ind-num" id="v1"></span><span class="ind-unit" id="u1">árboles</span></div>
+    <p class="ind-trend" id="t1"></p><p class="ind-compare">Bogotá: 118</p>
+    <footer class="ind-meta"><span>Fuente: <b>Jardín Botánico de Bogotá</b></span><span>Corte: <span class="tnum">30 jun 2026</span></span></footer>
+  </article>
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div class="legend" style="max-width:none">
+      <p class="legend-title">Las 20 localidades</p>
+      <div class="legend-scale"><span style="background:var(--data-seq-2)"></span><span style="background:var(--data-seq-3)"></span><span style="background:var(--data-seq-4)"></span><span style="background:var(--data-seq-5)"></span><span style="background:var(--data-seq-6)"></span></div>
+      <div class="legend-ticks"><span>0</span><span>60</span><span>100</span><span>150</span><span>200</span><span>260</span></div>
+      <div class="legend-extra"><span class="legend-key"><span class="legend-swatch is-nodata"></span>Sin dato</span><span class="legend-key"><span class="legend-swatch is-selected"></span><span data-l></span></span></div>
+    </div>
+    <ol id="rank" style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-divider)"></ol>
+  </section>
+  <aside class="notice" role="status"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><p class="notice-title">Estos datos llegan con retraso</p><p class="notice-body">El Acueducto publicó su último corte el 31 mar 2026. Esperábamos uno nuevo el 30 jun; mientras llega, mostramos el más reciente.</p><a class="notice-link" href="#">Cómo actualizamos los datos</a></div></aside>
+  <article class="ind">
+    <header class="ind-head"><span class="ind-kicker">Servicios</span><span class="ind-loc" data-l></span></header>
+    <h3 class="ind-title">Consumo de agua por hogar</h3>
+    <span class="ind-flag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Datos con retraso</span>
+    <div class="ind-value"><span class="ind-num" id="v2"></span><span class="ind-unit">m³ / mes</span></div>
+    <p class="ind-trend"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>Sin cambio frente al corte anterior</p>
+    <footer class="ind-meta"><span>Fuente: <b>Acueducto de Bogotá</b></span><span>Corte: <span class="tnum">31 mar 2026</span></span></footer>
+  </article>
+  <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:0">Cifras de ejemplo para el sistema de diseño.</p>
+</main></div>
+<script>
+const L=['Usaquén','Chapinero','Santa Fe','San Cristóbal','Usme','Tunjuelito','Bosa','Kennedy','Fontibón','Engativá','Suba','Barrios Unidos','Teusaquillo','Los Mártires','Antonio Nariño','Puente Aranda','La Candelaria','Rafael Uribe Uribe','Ciudad Bolívar','Sumapaz'];
+const A=[190,240,160,120,95,70,45,55,110,90,130,150,260,60,85,75,100,80,65,null];
+const W=[12.1,13.4,10.2,10.8,10.5,11.0,10.9,11.4,11.8,11.6,12.3,12.0,12.9,10.7,11.1,11.3,9.8,10.6,10.1,null];
+const T=[3,5,-2,1,4,0,6,2,-1,3,2,0,1,-3,2,1,0,2,5,0];
+const bin=v=>v==null?null:v<60?2:v<100?3:v<150?4:v<200?5:6;
+const fmt=v=>v==null?'—':v.toLocaleString('es-CO',{maximumFractionDigits:1,minimumFractionDigits:typeof v==='number'&&v%1?1:0});
+const I={"up":"<polyline points=\"22 7 13.5 15.5 8.5 10.5 2 17\"/><polyline points=\"16 7 22 7 22 13\"/>","down":"<polyline points=\"22 17 13.5 8.5 8.5 13.5 2 7\"/><polyline points=\"16 17 22 17 22 11\"/>","flat":"<path d=\"M5 12h14\"/>","clock":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>","pin":"<path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>","chev":"<path d=\"m6 9 6 6 6-6\"/>"};const ico=k=>'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">'+I[k]+'</svg>';
+const sel=document.getElementById('loc');const saved=+(localStorage.getItem('bacata-loc')??7);
+sel.innerHTML=L.map((l,i)=>'<option value="'+i+'"'+(i===saved?' selected':'')+'>'+String(i+1).padStart(2,'0')+' · '+l+'</option>').join('');
+
+function draw(){const i=+sel.value;localStorage.setItem('bacata-loc',i);
+ document.getElementById('h').textContent=L[i]+', en cifras';
+ document.querySelectorAll('[data-l]').forEach(e=>e.textContent=String(i+1).padStart(2,'0')+' · '+L[i]);
+ document.getElementById('v1').textContent=fmt(A[i]);
+ document.getElementById('v2').textContent=fmt(W[i]);
+ const t=T[i],t1=document.getElementById('t1');
+ t1.innerHTML=A[i]==null?ico('flat')+'Sin serie para comparar':t>0?ico('up')+'Sube '+t+' frente a 2025':t<0?ico('down')+'Baja '+(-t)+' frente a 2025':ico('flat')+'Sin cambio frente a 2025';
+ const order=L.map((l,k)=>k).sort((a,b)=>(A[b]??-1)-(A[a]??-1));
+ document.getElementById('rank').innerHTML=order.map(k=>{const b=bin(A[k]),me=k===i;
+  return '<li style="display:grid;grid-template-columns:18px 1fr auto;gap:12px;align-items:center;min-height:40px;padding:0 8px;border-bottom:1px solid var(--color-divider);'+(me?'box-shadow:inset 0 0 0 2px var(--data-highlight);':'')+'">'+
+  '<span style="width:18px;height:18px;border:1px solid var(--color-border-strong);background:'+(b?'var(--data-seq-'+b+')':'var(--data-nodata-pattern)')+'"></span>'+
+  '<span style="font-size:15px;'+(me?'font-weight:600':'')+'">'+L[k]+'</span><span class="tnum" style="font-size:15px">'+fmt(A[k])+'</span></li>';}).join('');}
+sel.addEventListener('change',draw);draw();
+</script></body></html>

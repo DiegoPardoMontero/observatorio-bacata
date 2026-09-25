@@ -1,0 +1,40 @@
+/* Paleta de marca — Bacatá. Oro (orfebrería muisca), Sabana (pasto y humedal), Cerro (Monserrate y Guadalupe en la niebla). */
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201f1d;          /* 15.9:1 sobre bg */
+  --color-text-muted: #5b5853;    /* 6.3:1 — reemplaza el gris 55% de Classical, que no pasa AA */
+  --color-divider: color-mix(in srgb, #201f1d 16%, transparent);
+  --color-border-strong: #8a8680; /* 3.3:1 — bordes de controles (WCAG 1.4.11) */
+
+  --color-oro: #b68235;           /* 3.0:1 — trazos, iconos, texto ≥ 24px */
+  --color-oro-text: #7d5411;      /* 6.0:1 — texto de cuerpo en oro */
+  --color-oro-100: #fff3e4;
+  --color-oro-200: #ffe3bf;
+  --color-oro-600: #a06f24;
+
+  --color-sabana: #5b7a45;        /* 4.4:1 — trazos y texto grande */
+  --color-sabana-text: #3d5a2c;   /* 7.0:1 */
+  --color-sabana-100: #eef2e6;
+
+  --color-cerro: #56707f;         /* 4.6:1 */
+  --color-cerro-text: #3e5566;    /* 7.0:1 */
+  --color-cerro-100: #e8eef1;
+
+  /* Alias para las clases de Classical */
+  --color-accent: var(--color-oro);
+  --color-accent-2: var(--color-oro);
+
+  /* Roles semánticos */
+  --surface-card: transparent;
+  --text-body: var(--color-text);
+  --text-secondary: var(--color-text-muted);
+  --text-link: var(--color-oro-text);
+  --status-delay-border: var(--color-oro);
+  --status-delay-bg: var(--color-oro-100);
+  --status-delay-text: var(--color-oro-text);
+  --status-info-border: var(--color-cerro);
+  --status-info-bg: var(--color-cerro-100);
+  --status-info-text: var(--color-cerro-text);
+  --trend-text: var(--color-cerro-text); /* la tendencia nunca se pinta de verde/rojo */
+}
