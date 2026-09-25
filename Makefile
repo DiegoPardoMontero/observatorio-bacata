@@ -14,8 +14,10 @@ extract-rmcab:
 extract-sdscj:
 	$(PYTHON) -m extract.sdscj
 
-# dbt corre desde la raíz: las rutas de DuckDB, Bronze y Gold son relativas a ella
+# dbt corre desde la raíz: las rutas de DuckDB, Bronze y Gold son relativas a ella.
+# DuckDB no crea carpetas al escribir Parquet, así que data/gold se crea antes.
 transform:
+	mkdir -p data/gold
 	$(DBT) build --project-dir transform --profiles-dir transform
 
 # Se borra la caché de los data loaders: Framework solo los vuelve a correr si
