@@ -16,5 +16,8 @@ extract-sdscj:
 transform:
 	@echo "transform: pendiente (dbt build)"
 
+# Se borra la caché de los data loaders: Framework solo los vuelve a correr si
+# cambia el código del loader, no si cambian los datos de Bronze.
 site:
-	@echo "site: pendiente (build del sitio)"
+	rm -rf site/src/.observablehq/cache/data
+	cd site && ([ -d node_modules ] || npm ci) && npm run build

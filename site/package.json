@@ -1,0 +1,16 @@
+{
+  "name": "observatorio-bacata-sitio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "observable build && node scripts/idioma.js",
+    "dev": "observable preview",
+    "observable": "observable"
+  },
+  "dependencies": {
+    "@observablehq/framework": "^1.13.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

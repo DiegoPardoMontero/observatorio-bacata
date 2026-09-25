@@ -6,7 +6,7 @@ __pycache__/
 *.egg-info/
 
 # Datos locales (la historia vive en almacenamiento de objetos, no en git)
-data/
+/data/
 *.duckdb
 *.duckdb.wal
 *.parquet
@@ -20,7 +20,7 @@ transform/logs/
 # Sitio
 node_modules/
 site/dist/
-site/.observablehq/cache/
+site/src/.observablehq/cache/
 
 # Entorno
 .env
