@@ -1,0 +1,26 @@
+name: observatorio_bacata
+version: "0.1.0"
+profile: observatorio_bacata
+config-version: 2
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  observatorio_bacata:
+    staging:
+      +materialized: view
+    # Gold se escribe como Parquet en data/gold/: es lo que lee el sitio y lo que se descarga (RF-17)
+    marts:
+      +materialized: external
+
+seeds:
+  observatorio_bacata:
+    localidad:
+      +column_types: {localidad_id: varchar}
+    estacion:
+      +column_types: {estacion_id: integer, localidad_id: varchar}

@@ -1,4 +1,5 @@
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
+DBT ?= $(if $(wildcard .venv/bin/dbt),.venv/bin/dbt,dbt)
 FECHA ?= $(shell TZ=America/Bogota date +%F)
 
 .PHONY: all extract transform site extract-rmcab extract-sdscj
@@ -13,8 +14,9 @@ extract-rmcab:
 extract-sdscj:
 	$(PYTHON) -m extract.sdscj
 
+# dbt corre desde la raíz: las rutas de DuckDB, Bronze y Gold son relativas a ella
 transform:
-	@echo "transform: pendiente (dbt build)"
+	$(DBT) build --project-dir transform --profiles-dir transform
 
 # Se borra la caché de los data loaders: Framework solo los vuelve a correr si
 # cambia el código del loader, no si cambian los datos de Bronze.

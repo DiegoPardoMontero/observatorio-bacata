@@ -1,0 +1,133 @@
+version: 2
+
+models:
+  - name: dim_localidad
+    description: Las 20 localidades de Bogotá con su nombre canónico y sus estaciones fijas de aire.
+    columns:
+      - name: localidad_id
+        data_tests: [unique, not_null]
+      - name: slug
+        data_tests: [unique, not_null]
+
+  - name: dim_estacion
+    description: Estaciones de la RMCAB con su localidad.
+    columns:
+      - name: estacion_id
+        data_tests: [unique, not_null]
+      - name: localidad_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_localidad')
+                field: localidad_id
+
+  - name: dim_indicador
+    columns:
+      - name: indicador_id
+        data_tests: [unique, not_null]
+
+  - name: fct_aire_estacion_hora
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [estacion_id, contaminante, fecha_hora]
+    columns:
+      - name: contaminante
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [pm25, pm10, o3, no2, so2, co]
+
+  - name: fct_aire_iboca_hora
+    description: NowCast de PM2.5 y categoría del IBOCA por estación y hora (Res. conjunta 2840 de 2023).
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [estacion_id, fecha_hora]
+    columns:
+      - name: pm25_nowcast
+        data_tests:
+          - en_rango:
+              arguments:
+                minimo: -10
+                maximo: 1000
+      - name: iboca_nivel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
+
+  - name: fct_aire_estacion_dia
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [estacion_id, contaminante, fecha]
+    columns:
+      - name: horas_validas
+        data_tests:
+          - en_rango:
+              arguments:
+                minimo: 0
+                maximo: 24
+
+  - name: fct_indicador_localidad_mes
+    description: Hecho principal del sitio. Un valor por localidad, mes e indicador (SPEC §8).
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [localidad_id, mes, indicador_id]
+    columns:
+      - name: localidad_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_localidad')
+                field: localidad_id
+      - name: indicador_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_indicador')
+                field: indicador_id
+      - name: valor
+        data_tests:
+          - not_null
+          - en_rango:
+              arguments:
+                minimo: 0
+                maximo: 1000
+      - name: fecha_corte_fuente
+        data_tests: [not_null]
+
+unit_tests:
+  - name: nowcast_pondera_por_horas_hacia_atras
+    description: >
+      Con 10, 20 y 30 µg/m³ (de la hora actual hacia atrás), w = 10/30 sube al piso de 0,5 y
+      NowCast = (10 + 0,5·20 + 0,25·30) / 1,75 = 15,71, que se trunca a 15,7: IBOCA moderado (59).
+      A las 11:00 falta la hora actual, pero hay 2 de las 3 últimas: se calcula con pesos desde w¹.
+      Con solo 1 de las 3 últimas horas válidas no hay NowCast.
+    model: fct_aire_iboca_hora
+    given:
+      - input: ref('stg_rmcab__medicion')
+        rows:
+          - {estacion_id: 1, parametro: PM2.5, fecha_hora: "2026-08-15 08:00:00", valor: 30}
+          - {estacion_id: 1, parametro: PM2.5, fecha_hora: "2026-08-15 09:00:00", valor: 20}
+          - {estacion_id: 1, parametro: PM2.5, fecha_hora: "2026-08-15 10:00:00", valor: 10}
+          - {estacion_id: 1, parametro: PM2.5, fecha_hora: "2026-08-15 11:00:00", valor: null}
+          - {estacion_id: 1, parametro: PM2.5, fecha_hora: "2026-08-15 12:00:00", valor: null}
+      - input: ref('iboca_pm25')
+        rows:
+          - {nivel: 1, categoria: Bajo, color: Verde, color_hex: "#00e400", nivel_actuacion: Prevención, c_menor: 0.0, c_mayor: 12.0, i_menor: 0, i_mayor: 50}
+          - {nivel: 2, categoria: Moderado, color: Amarillo, color_hex: "#ffff00", nivel_actuacion: Prevención, c_menor: 12.1, c_mayor: 35.4, i_menor: 51, i_mayor: 100}
+    expect:
+      rows:
+        - {estacion_id: 1, fecha_hora: "2026-08-15 08:00:00", pm25_nowcast: null, iboca: null, iboca_categoria: null}
+        - {estacion_id: 1, fecha_hora: "2026-08-15 09:00:00", pm25_nowcast: 24.0, iboca: 76, iboca_categoria: Moderado}
+        - {estacion_id: 1, fecha_hora: "2026-08-15 10:00:00", pm25_nowcast: 15.7, iboca: 59, iboca_categoria: Moderado}
+        - {estacion_id: 1, fecha_hora: "2026-08-15 11:00:00", pm25_nowcast: 15.7, iboca: 59, iboca_categoria: Moderado}
+        - {estacion_id: 1, fecha_hora: "2026-08-15 12:00:00", pm25_nowcast: null, iboca: null, iboca_categoria: null}

@@ -1,0 +1,11 @@
+# Perfil de dbt: DuckDB local, sin servidor. Se corre desde la raíz del repo:
+#   dbt build --project-dir transform --profiles-dir transform
+# Las rutas (base de datos, Bronze, Gold) son relativas a la raíz.
+observatorio_bacata:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('BACATA_DUCKDB', 'data/bacata.duckdb') }}"
+      threads: 4
+      external_root: data/gold

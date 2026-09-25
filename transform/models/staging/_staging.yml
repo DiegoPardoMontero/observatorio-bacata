@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_rmcab__medicion
+    description: >
+      Una fila por estación, parámetro y hora. La hora es la de inicio, en hora de Bogotá.
+      `valor` es nulo si el portal no marca el dato como válido o si viene en -9999.
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [estacion_id, parametro, fecha_hora]
+    columns:
+      - name: estacion_id
+        data_tests:
+          - not_null
+          # Una estación nueva en el portal debe agregarse a la semilla, no pasar en silencio
+          - relationships:
+              arguments:
+                to: ref('estacion')
+                field: estacion_id
+      - name: parametro
+        data_tests: [not_null]
+      - name: fecha_hora
+        data_tests: [not_null]
+      - name: es_valida
+        data_tests: [not_null]

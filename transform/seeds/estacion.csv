@@ -1,0 +1,20 @@
+estacion_id,sigla_sda,nombre,localidad_id,latitud,longitud,es_movil,mide_pm25,mide_pm10,direccion
+1,USQ,Usaquén,01,4.710363,-74.030417,false,true,true,Kr 7 B Bis No. 132 - 11
+3,CSE,Carvajal - Sevillana,08,4.595629,-74.148583,false,true,false,Autopista Sur No. 63-40
+4,TUN,Tunal,06,4.576296,-74.130967,false,true,true,Kr 24 No. 49 - 86 Sur
+5,CDAR,Centro de Alto Rendimiento,12,4.658479,-74.083967,false,true,true,Calle 63 No. 59A - 06
+6,LFR,Las Ferias,10,4.690713,-74.082483,false,true,true,Av. Calle 80 No. 69 Q - 50
+8,GYR,Guaymaral,11,4.783746,-74.043783,false,true,true,Autopista Norte No. 205 - 59
+9,KEN,Kennedy,08,4.625062,-74.161333,false,true,true,Kr 80 No. 40-55 Sur
+11,SUB,Suba,11,4.761363,-74.093483,false,true,true,Kr 111No. 159A - 61
+13,PTE,Puente Aranda,16,4.631779,-74.117483,false,true,true,Calle 10 No. 65-28
+17,MAM,MinAmbiente,03,4.625562,-74.066867,false,true,true,Calle 37 No. 8-40
+24,SCR,San Cristóbal,04,4.572662,-74.0838,false,true,true,Kr 2 Este No 12 - 78 Sur
+26,MOV,Móvil 7ma,02,4.645194,-74.061556,true,true,true,Carrera 7 con calle 60
+27,BOL,Bolivia,10,4.735879,-74.125883,false,true,true,Av. Calle 80 No. 121 - 98
+30,FTB,Fontibón,09,4.678242,-74.143819,false,true,true,Carrera 104 # 20 C - 31
+32,USM,Usme,05,4.532056,-74.117139,false,true,true,Carrera 11 # 65 D 50 Sur
+34,JAZ,Jazmín,16,4.6085,-74.114944,false,true,true,Calle 1 G # 41 A 39
+37,CBV,Ciudad Bolívar,19,4.577806,-74.166278,false,true,true,Calle 70 Sur # 56 -11
+38,COL,Colina,11,4.737194,-74.069472,false,true,true,Avenida Boyacá No 142 A55
+39,MOV2,Móvil Fontibón,09,4.668,-74.1485,true,true,true,Cra. 98 #16 B 50

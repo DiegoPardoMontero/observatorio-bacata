@@ -4,7 +4,7 @@ Sitio cívico de datos abiertos de Bogotá, por localidad. Especificación: @doc
 # Comandos
 - make all: pipeline completo en local (extract, transform, site)
 - make extract-<fuente>: corre un extractor (ej. make extract-rmcab FECHA=2026-09-01)
-- dbt build --project-dir transform: modelos + tests
+- dbt build --project-dir transform --profiles-dir transform: modelos + tests (desde la raíz del repo)
 - pytest tests/: pruebas de extractores
 
 # Reglas del proyecto

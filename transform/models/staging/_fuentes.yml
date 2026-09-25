@@ -1,0 +1,16 @@
+version: 2
+
+# Bronze: Parquet crudo que escriben los extractores (extract/), particionado por fecha de carga.
+sources:
+  - name: bronze
+    meta:
+      external_location: "read_parquet('data/bronze/{name}/*/*.parquet', hive_partitioning = true, union_by_name = true)"
+    tables:
+      - name: rmcab__horario
+        description: Reporte horario de la RMCAB, una fila por estación, parámetro y hora (ADR 0001).
+        loaded_at_field: fecha_extraccion
+        freshness:
+          warn_after: {count: 3, period: hour}
+          error_after: {count: 6, period: hour}
+      - name: sdscj__delito_alto_impacto
+        description: Acumulados del año a la fecha por localidad y delito (ADR 0002).

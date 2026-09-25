@@ -1,0 +1,3 @@
+indicador_id,nombre,tema,unidad,direccion,descripcion,fuente,fuente_url,licencia
+aire_pm25_promedio,Partículas finas (PM2.5),aire,µg/m³,menor_es_mejor,"Promedio del mes de los promedios diarios de PM2.5 de las estaciones fijas de la localidad. Un día cuenta si tiene al menos 18 horas válidas.",RMCAB · Secretaría Distrital de Ambiente,http://rmcab.ambientebogota.gov.co/Report/HourlyReports,Por confirmar
+aire_pm25_dias_sobre_guia_oms,Días sobre la guía de la OMS,aire,% de los días,menor_es_mejor,"Porcentaje de días con promedio de PM2.5 por encima de 15 µg/m³, la guía diaria de la OMS (2021), en las estaciones fijas de la localidad.",RMCAB · Secretaría Distrital de Ambiente,http://rmcab.ambientebogota.gov.co/Report/HourlyReports,Por confirmar

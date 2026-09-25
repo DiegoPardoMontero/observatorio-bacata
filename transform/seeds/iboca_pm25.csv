@@ -1,0 +1,7 @@
+nivel,categoria,color,color_hex,nivel_actuacion,c_menor,c_mayor,i_menor,i_mayor
+1,Bajo,Verde,#00e400,Prevención,0.0,12.0,0,50
+2,Moderado,Amarillo,#ffff00,Prevención,12.1,35.4,51,100
+3,Regular,Naranja,#ff7e00,Alerta fase 1,35.5,55.4,101,150
+4,Alto,Rojo,#ff0000,Alerta fase 2,55.5,151.2,151,200
+5,Peligroso,Morado,#8f3f97,Emergencia,151.3,250.4,201,300
+5,Peligroso,Morado,#8f3f97,Emergencia,250.5,500.4,301,500

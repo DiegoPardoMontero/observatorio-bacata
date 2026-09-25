@@ -1,0 +1,21 @@
+localidad_id,nombre,slug,es_rural
+01,Usaquén,usaquen,false
+02,Chapinero,chapinero,false
+03,Santa Fe,santa-fe,false
+04,San Cristóbal,san-cristobal,false
+05,Usme,usme,false
+06,Tunjuelito,tunjuelito,false
+07,Bosa,bosa,false
+08,Kennedy,kennedy,false
+09,Fontibón,fontibon,false
+10,Engativá,engativa,false
+11,Suba,suba,false
+12,Barrios Unidos,barrios-unidos,false
+13,Teusaquillo,teusaquillo,false
+14,Los Mártires,los-martires,false
+15,Antonio Nariño,antonio-narino,false
+16,Puente Aranda,puente-aranda,false
+17,La Candelaria,la-candelaria,false
+18,Rafael Uribe Uribe,rafael-uribe-uribe,false
+19,Ciudad Bolívar,ciudad-bolivar,false
+20,Sumapaz,sumapaz,true
