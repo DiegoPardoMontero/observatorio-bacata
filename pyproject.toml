@@ -16,3 +16,17 @@ dependencies = [
 dev = [
     "pytest",
 ]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["extract"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not red'"
+markers = [
+    "red: pruebas que consultan la fuente real por internet (correr con -m red)",
+]
