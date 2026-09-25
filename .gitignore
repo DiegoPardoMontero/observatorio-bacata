@@ -1,0 +1,26 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Datos locales (la historia vive en almacenamiento de objetos, no en git)
+data/
+*.duckdb
+*.duckdb.wal
+*.parquet
+!tests/fixtures/**
+
+# dbt
+transform/target/
+transform/dbt_packages/
+transform/logs/
+
+# Sitio
+node_modules/
+site/dist/
+site/.observablehq/cache/
+
+# Entorno
+.env
+.DS_Store
