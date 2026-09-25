@@ -62,7 +62,7 @@ Los estimados suponen dedicación parcial (tardes y fines de semana) y están po
 
 ## 4. Fuentes de datos
 
-Hay datos suficientes para los cuatro temas, pero con calidades muy distintas. Seguridad es la fuente más limpia (mensual, por localidad, al día). Aire tiene la mejor resolución, pero no tiene API documentada. Movilidad y costo de vida tienen huecos que hay que resolver antes de su fase.
+Hay datos suficientes para los cuatro temas, pero con calidades muy distintas. Seguridad está por localidad y al día, pero publica acumulados del año y no meses, y sus archivos no cuadran entre sí en varios hurtos (ADR 0002). Aire tiene la mejor resolución, pero no tiene API documentada. Movilidad y costo de vida tienen huecos que hay que resolver antes de su fase.
 
 | Tema | Fuente y proveedor | Granularidad | Frecuencia / cobertura | Formato | Licencia | Estado |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -72,7 +72,7 @@ Hay datos suficientes para los cuatro temas, pero con calidades muy distintas. S
 | Movilidad | [Validaciones SITP](https://datosabiertos-transmilenio.hub.arcgis.com/documents/2085b5a41a0243c7958ebeb36911bb1a) — TransMilenio | Cada entrada a estación o bus | Por confirmar | Portal ArcGIS Hub | Por confirmar | Por explorar: volumen alto |
 | Movilidad | [Validaciones mensuales por franja horaria](https://datosabiertos.bogota.gov.co/dataset/validaciones-mensuales-del-sitp-por-franja-horaria) — TransMilenio | Franjas de 15 min, sin estación | Mensual (última actualización dic. 2024) | XLSX | CC BY-SA 4.0 | Desactualizado |
 | Movilidad | [Histórico siniestros](https://datosabiertos.bogota.gov.co/en/dataset/historico-siniestros-bogota-d-c) — Secretaría de Movilidad | Punto georreferenciado | Desde 2015 (última actualización oct. 2021) | CSV, GeoJSON, API REST | CC BY 4.0 | Desactualizado: buscar versión reciente en el [portal de la SDM](https://datos.movilidadbogota.gov.co/search?tags=siniestralidad) |
-| Seguridad | [Delito de Alto Impacto](https://datosabiertos.bogota.gov.co/dataset/delito-de-alto-impacto-bogota-d-c) — Secretaría de Seguridad | Por localidad | Mensual, ene. 2018 – ago. 2026 | GeoJSON, GPKG, SHP, WFS, REST | CC BY-SA 4.0 | Listo |
+| Seguridad | [Delito de Alto Impacto](https://datosabiertos.bogota.gov.co/dataset/delito-de-alto-impacto-bogota-d-c) — Secretaría de Seguridad | Por localidad; acumulado del año a la fecha (no mensual), 11 delitos | Se reemplaza cada mes. Acumulado ene.–ago. de 2018 a 2026 y años completos de 2018 a 2025 | GeoJSON, GPKG, SHP, WFS, REST | CC BY-SA 4.0 | Extracción lista. Inconsistencias en hurtos por aclarar con la SDSCJ ([ADR 0002](decisiones/0002-extraccion-delito-alto-impacto.md)) |
 | Costo de vida | [IPC](https://www.dane.gov.co/index.php/estadisticas-por-tema/precios-y-costos/indice-de-precios-al-consumidor-ipc/) — DANE | Ciudad (Bogotá entre 38 ciudades), 12 divisiones de gasto | Mensual, base 2018 | XLSX (anexos) | DANE | Listo, pero sin detalle por localidad |
 | Costo de vida | [Encuesta Multipropósito](https://microdatos.dane.gov.co/index.php/catalog/743) — SDP y DANE | Hogar, representativa por localidad | Cada 3–4 años (última con microdatos: 2021) | Microdatos | DANE | Por explorar |
 
