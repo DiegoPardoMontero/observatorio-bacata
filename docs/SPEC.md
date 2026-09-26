@@ -180,7 +180,7 @@ El riesgo técnico más alto es depender de extraer datos del portal RMCAB. El r
 | --- | --- | --- |
 | El portal RMCAB cambia o bloquea la extracción | Aire se queda sin datos | Extractor aislado con prueba de contrato. Pedir acceso formal o un volcado a la Secretaría de Ambiente. Si falla, el sitio muestra "datos retrasados" |
 | Fuentes de movilidad desactualizadas (2021 y 2024) | Fase 2 con datos viejos | Explorar el portal de la SDM y el hub de TransMilenio antes de la fase. Si no hay nada reciente, se publica como histórico y se advierte |
-| GitHub desactiva los cron de repos públicos tras 60 días sin actividad | El sitio deja de actualizarse sin avisar | Commit automático de metadatos por ejecución y alerta si no hay corrida en 48 h |
+| GitHub desactiva los cron de repos públicos tras 60 días sin actividad | El sitio deja de actualizarse sin avisar | Por ahora, manual: la página de estado avisa si el sitio lleva más de 3 horas sin construirse, y basta un commit en menos de 60 días. Un keepalive automático queda pendiente de revisar los términos de GitHub ([ADR 0004](decisiones/0004-historia-en-github-releases.md)) |
 | Asignar estaciones de aire a localidades engaña (hay localidades sin estación) | Conclusiones falsas sobre una zona | Mostrar el aire por estación, no interpolado. Las localidades sin estación dicen "sin medición" |
 | Sumapaz (rural, poca población) distorsiona tasas y mapas | Valores extremos que confunden | Tratarla aparte, con una nota visible |
 
@@ -200,6 +200,7 @@ El riesgo técnico más alto es depender de extraer datos del portal RMCAB. El r
 - [x] ¿Qué fuente de población por localidad se usa como oficial? Las proyecciones DANE-SDP de agosto de 2025 ([ADR 0005](decisiones/0005-poblacion-por-localidad.md))
 - [ ] ¿Dominio propio (p. ej. bacata.co o similar) o subdominio gratuito al inicio?
 - [ ] ¿Cómo se diferencia de observatorios que ya existen, como el de la Secretaría de Movilidad? Propuesta: la vista cruzada de los cuatro temas por localidad
+- [ ] ¿Cómo comparar localidades en siniestros viales: conteos, tasa por residentes o las dos? La tasa por residentes castiga a las localidades céntricas: Los Mártires tiene 937 heridos por 100.000 habitantes y Bogotá 247. Propuesta: conteos de 12 meses y tendencia de cada localidad ([ADR 0006](decisiones/0006-fuentes-de-movilidad.md))
 - [x] ¿Aire o seguridad como primer tema publicado? Aire: seguridad necesita población por localidad y su fuente tiene inconsistencias ([ADR 0002](decisiones/0002-extraccion-delito-alto-impacto.md))
 
 ## 10. Roadmap y siguientes pasos
