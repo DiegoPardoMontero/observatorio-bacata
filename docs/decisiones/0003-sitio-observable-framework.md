@@ -22,7 +22,17 @@ La SPEC deja abierta la elección entre Observable Framework y Astro (§9) y pid
 - **Data loaders en Python.** Framework corre `python3` por defecto. Con la opción `interpreters`, la configuración usa `.venv/bin/python` si existe. Los loaders corren con el directorio de trabajo en `site/`, así que las rutas se arman desde `__file__`.
 - **El sistema de diseño entra casi tal cual.** Con `style`, la hoja propia reemplaza el tema. Se importa la base de Framework (`observablehq:default.css` y `theme-air`) y encima los tokens y componentes directamente desde `docs/diseno/design/`. El bundler resuelve rutas fuera de `src/`, así que el sistema de diseño tiene una sola fuente de verdad y no hay copias.
 - **Observable Plot** alcanza para este tipo de gráfico: small multiples por estación, líneas de referencia, etiquetas selectivas, tooltip y ancho adaptable con `resize`. Acepta variables CSS como colores, así que las marcas usan los tokens de datos.
-- **Peso:** 216 KB comprimidos con gzip en la carga inicial (625 KB sin comprimir), más las fuentes de Google. Está por debajo del 1 MB de RNF-03. El LCP no se midió.
+- **Peso:** 216 KB comprimidos con gzip en la carga inicial (625 KB sin comprimir), más las fuentes de Google. Está por debajo del 1 MB de RNF-03. El LCP no se midió en la prueba.
+- **Medición de RNF-03 con el sitio completo** (25 sep 2026, sitio publicado en GitHub Pages): Chromium a 360 px con el perfil móvil de Lighthouse (4G lento: 150 ms de RTT, 1,6 Mbps de bajada, 750 kbps de subida; CPU 4 veces más lenta), sin caché, mediana de 3 cargas. El elemento del LCP es la entradilla en todas.
+
+  | Página | LCP | Transferido (con fuentes) |
+  | --- | --- | --- |
+  | Portada | 1,69 s | 239 KB |
+  | Aire | 1,84 s | 364 KB |
+  | Mapa | 1,75 s | 327 KB |
+  | Ficha de Kennedy | 1,91 s | 314 KB |
+
+  Todas cumplen RNF-03 (LCP menor a 2,5 s y menos de 1 MB). Las fuentes de Google suman unos 76 KB por página.
 - **Móvil:** a 360 px no hay scroll horizontal y el gráfico se ajusta al ancho (RNF-04).
 
 **Hubo que rodearlo**
