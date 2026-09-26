@@ -60,6 +60,22 @@ models:
                 minimo: 6000000
                 maximo: 10000000
 
+  - name: dim_fecha
+    description: >
+      Un día por fila, de 2005 a 2035, con el día de la semana y los festivos de Colombia
+      (Ley 51 de 1983 y Ley 2578 de 2026). `es_dia_habil` es de lunes a viernes sin festivo.
+    columns:
+      - name: fecha
+        data_tests: [unique, not_null]
+      - name: dia_semana
+        data_tests:
+          - en_rango:
+              arguments:
+                minimo: 1
+                maximo: 7
+      - name: es_festivo
+        data_tests: [not_null]
+
   - name: dim_indicador
     columns:
       - name: indicador_id

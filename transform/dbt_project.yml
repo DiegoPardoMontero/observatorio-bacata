@@ -26,3 +26,5 @@ seeds:
       +column_types: {estacion_id: integer, localidad_id: varchar}
     poblacion_localidad:
       +column_types: {localidad_id: varchar, anio: integer, poblacion: integer}
+    festivo:
+      +column_types: {fecha: date, nombre: varchar}

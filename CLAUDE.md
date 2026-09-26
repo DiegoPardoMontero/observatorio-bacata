@@ -10,6 +10,7 @@ Sitio cívico de datos abiertos de Bogotá, por localidad. Especificación: @doc
 - python -m extract.historia bajar | subir: historia de Bronze en la release `bronze` (ADR 0004)
 - El pipeline de producción es .github/workflows/pipeline.yml (cada hora)
 - python scripts/semilla_poblacion.py: regenera la población por localidad y año (ADR 0005); solo si la fuente publica una revisión
+- python scripts/semilla_festivos.py: regenera los festivos de Colombia de dim_fecha; solo si cambia la ley
 
 # Reglas del proyecto
 - Todo en español: nombres de modelos, columnas y textos del sitio
