@@ -23,6 +23,7 @@ title: __NOMBRE__, en cifras
 ```js
 import {fecha, hora, fechaHora, mes, numero, porcentaje, MESES, MESES_LARGOS, conCodigo} from "../components/formato.js";
 import {tarjetaIndicador, tarjetaProximamente, aviso, categoriaIboca, icono} from "../components/ui.js";
+import {termino} from "../components/glosario.js";
 
 const catalogo = FileAttachment("../data/catalogo.json").json();
 const indicadores = (await FileAttachment("../data/indicadores.csv").csv({typed: true})).map(conCodigo);
@@ -59,7 +60,7 @@ display(selector);
 
 <p class="entradilla">${localidad.poblacion ? `${numero(localidad.poblacion, 0)} habitantes en ${localidad.anio_poblacion}. ` : ""}Sus cifras en los cuatro temas, comparadas con las de toda Bogotá.</p>
 
-${localidad.poblacion ? html`<p class="fuente">Población estimada: proyecciones del <b>DANE</b> y la Secretaría Distrital de Planeación, publicadas en agosto de 2025. <a href="../metodologia#poblacion">Cómo se calculó</a></p>` : ""}
+${localidad.poblacion ? html`<p class="fuente">Población estimada: ${termino("proyeccion", "proyecciones")} del <b>DANE</b> y la Secretaría Distrital de Planeación, publicadas en agosto de 2025. <a href="../metodologia#poblacion">Cómo se calculó</a></p>` : ""}
 
 ```js
 if (localidad.es_rural) {
@@ -107,7 +108,7 @@ if (localidad.es_rural) {
 if (estacionesLocalidad.length === 0) {
   display(html`<p>La Red de Monitoreo de Calidad del Aire no tiene estaciones fijas en ${localidad.nombre}. En el <a href="../mapa">mapa</a> puedes ver las localidades que sí tienen medición.</p>`);
 } else {
-  display(html`<p>${estacionesLocalidad.length === 1 ? "Su estación" : "Sus estaciones"} de la red de monitoreo, con el IBOCA más reciente:</p>`);
+  display(html`<p>${estacionesLocalidad.length === 1 ? "Su estación" : "Sus estaciones"} de la red de monitoreo, con el ${termino("iboca", "IBOCA")} más reciente de ${termino("pm25", "PM2.5")}:</p>`);
   display(html`<ul class="estaciones">${estacionesLocalidad.map((e) => {
     const d = estadoPorEstacion.get(e.estacion_id);
     return html`<li class="estacion">
@@ -150,7 +151,7 @@ if (pm25.length > 0) {
   }))}</div>`);
   const ultimoOms = diasOms.at(-1);
   if (ultimoOms) {
-    display(html`<p>En ${MESES_LARGOS[ultimoOms.mes.getUTCMonth()]}, ${porcentaje(ultimoOms.valor)} de los días ${localidad.nombre} pasó la guía diaria de la OMS (15 µg/m³). En toda Bogotá fue ${porcentaje(ultimoOms.valor_ciudad)}.</p>`);
+    display(html`<p>En ${MESES_LARGOS[ultimoOms.mes.getUTCMonth()]}, ${porcentaje(ultimoOms.valor)} de los días ${localidad.nombre} pasó la ${termino("oms", "guía diaria de la OMS")} (15 µg/m³). En toda Bogotá fue ${porcentaje(ultimoOms.valor_ciudad)}.</p>`);
   }
   display(html`<p class="fuente">Fuente: <b><a href="http://rmcab.ambientebogota.gov.co/Report/HourlyReports">RMCAB</a></b>, Secretaría Distrital de Ambiente · Corte: <span class="tnum">${fecha(pm25.at(-1).fecha_corte_fuente)}</span> · Solo estaciones fijas; un mes cuenta si hay datos en al menos el 75 % de los días. <a href="../metodologia#aire">Cómo se calculó</a></p>`);
 }

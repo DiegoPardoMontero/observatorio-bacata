@@ -5,6 +5,7 @@ title: ¿Cómo está el aire ahora?
 ```js
 import {ahoraBogota, fecha, fechaHora, hora, hace, numero, DIAS, MESES} from "./components/formato.js";
 import {aviso, categoriaIboca, colores} from "./components/ui.js";
+import {termino} from "./components/glosario.js";
 
 const catalogo = FileAttachment("data/catalogo.json").json();
 const estado = FileAttachment("data/estado_aire.json").json();
@@ -41,9 +42,11 @@ if (retrasado) {
 
 # ¿Cómo está el aire ahora?
 
-<p class="entradilla">El IBOCA es el índice oficial de calidad del aire de Bogotá. Para las partículas finas (PM2.5) usa el promedio ponderado de las últimas 12 horas en cada estación, que pesa más las horas recientes.</p>
+<p class="entradilla">El ${termino("iboca", "IBOCA")} es el índice oficial de calidad del aire de Bogotá. Para las partículas finas (${termino("pm25", "PM2.5")}) usa el ${termino("nowcast", "promedio ponderado de las últimas 12 horas")} en cada estación, que pesa más las horas recientes.</p>
 
 <div class="seccion-encabezado"><h2>Estado por estación</h2><span class="tnum">${fechaHora(ultimaHora)}</span></div>
+
+<p class="fuente">Cada valor es el promedio ponderado de 12 horas de PM2.5, en ${termino("microgramos", "µg/m³")}.</p>
 
 ${resumenEstado()}
 
@@ -158,8 +161,8 @@ function graficoSemana(width) {
 
 <ul class="leyenda-referencias" aria-label="Qué muestra cada línea">
   <li><span class="clave-linea" aria-hidden="true"></span>Promedio diario de PM2.5</li>
-  <li><span class="clave-linea is-norma" aria-hidden="true"></span>Límite diario de la norma colombiana: ${LIMITE_NORMA} µg/m³</li>
-  <li><span class="clave-linea is-oms" aria-hidden="true"></span>Guía diaria de la OMS: ${GUIA_OMS} µg/m³</li>
+  <li><span class="clave-linea is-norma" aria-hidden="true"></span>Límite diario de la ${termino("norma", "norma colombiana")}: ${LIMITE_NORMA} µg/m³</li>
+  <li><span class="clave-linea is-oms" aria-hidden="true"></span>${termino("oms", "Guía diaria de la OMS")}: ${GUIA_OMS} µg/m³</li>
 </ul>
 
 <div class="grafico">${resize((width) => graficoDiario(width))}</div>

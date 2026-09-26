@@ -5,6 +5,7 @@ title: Mapa de las localidades
 ```js
 import {fecha, mes, numero, conCodigo} from "./components/formato.js";
 import {colores} from "./components/ui.js";
+import {termino} from "./components/glosario.js";
 
 const catalogo = FileAttachment("data/catalogo.json").json();
 const indicadores = (await FileAttachment("data/indicadores.csv").csv({typed: true})).map(conCodigo);
@@ -127,14 +128,14 @@ function panel(id) {
   const l = localidades.get(id);
   const v = valores.get(id);
   const posicion = !v || mediana === undefined ? null
-    : Math.abs(v.valor - mediana) < 0.05 ? "igual a la mediana"
-    : v.valor > mediana ? "por encima de la mediana" : "por debajo de la mediana";
+    : Math.abs(v.valor - mediana) < 0.05 ? "en"
+    : v.valor > mediana ? "por encima de" : "por debajo de";
   return html`<article class="ind panel-localidad">
     <header class="ind-head"><span class="ind-kicker">${indicador.nombre}</span><span class="ind-loc">Localidad ${l.localidad_id}</span></header>
     <h3 class="ind-title">${l.nombre}</h3>
     ${v
       ? html`<div class="ind-value"><span class="ind-num">${numero(v.valor)}</span><span class="ind-unit">${indicador.unidad}</span></div>
-        <p class="ind-compare">Está ${posicion} de las localidades con medición (${numero(mediana)}). Bogotá: ${numero(v.valor_ciudad)}.</p>`
+        <p class="ind-compare">Está ${posicion} la ${termino("mediana")} de las localidades con medición (${numero(mediana)}). Bogotá: ${numero(v.valor_ciudad)}.</p>`
       : html`<p class="ind-compare">Sin medición: esta localidad no tiene una estación fija de la RMCAB. No interpolamos datos de otras zonas.</p>`}
     <p><a href=${`./localidad/${l.slug}`}>Ver la ficha de ${l.nombre}</a></p>
     <footer class="ind-meta"><span>Fuente: <b>${indicador.fuente}</b></span><span>Corte: <span class="tnum">${fecha(corte)}</span></span></footer>
