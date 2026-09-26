@@ -22,7 +22,7 @@ title: __NOMBRE__, en cifras
 
 ```js
 import {fecha, hora, fechaHora, mes, numero, porcentaje, MESES, MESES_LARGOS, conCodigo} from "../components/formato.js";
-import {tarjetaIndicador, tarjetaProximamente, aviso, categoriaIboca, icono} from "../components/ui.js";
+import {tarjetaIndicador, tarjetaProximamente, aviso, categoriaIboca, icono, accesible} from "../components/ui.js";
 import {termino} from "../components/glosario.js";
 
 const catalogo = FileAttachment("../data/catalogo.json").json();
@@ -132,7 +132,7 @@ if (pm25.length > 0) {
     <li><span class="clave-linea" aria-hidden="true"></span>${localidad.nombre}</li>
     <li><span class="clave-linea is-ciudad" aria-hidden="true"></span>Bogotá</li>
   </ul>`);
-  display(html`<div class="grafico">${resize((width) => Plot.plot({
+  display(html`<div class="grafico">${resize((width) => accesible(Plot.plot({
     width,
     height: 220,
     marginLeft: 32,
@@ -148,7 +148,7 @@ if (pm25.length > 0) {
       Plot.dot(pm25, {x: "mes", y: "valor", r: 4, fill: "var(--data-seq-6)", stroke: "var(--color-bg)", strokeWidth: 2}),
       Plot.tip(pm25, Plot.pointerX({x: "mes", y: "valor", title: (d) => `${mes(d.mes)}\n${localidad.nombre}: ${numero(d.valor)} µg/m³\nBogotá: ${numero(d.valor_ciudad)} µg/m³`}))
     ]
-  }))}</div>`);
+  })))}</div>`);
   const ultimoOms = diasOms.at(-1);
   if (ultimoOms) {
     display(html`<p>En ${MESES_LARGOS[ultimoOms.mes.getUTCMonth()]}, ${porcentaje(ultimoOms.valor)} de los días ${localidad.nombre} pasó la ${termino("oms", "guía diaria de la OMS")} (15 µg/m³). En toda Bogotá fue ${porcentaje(ultimoOms.valor_ciudad)}.</p>`);

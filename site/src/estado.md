@@ -42,7 +42,7 @@ for (const f of retrasadas) {
 
 <p>Última construcción del sitio: <span class="tnum">${fechaHora(construido)}</span> (${hace(construido)}). ${retrasadas.length === 0 ? "Todas las fuentes están al día." : `${retrasadas.length === 1 ? "Una fuente llega" : `${retrasadas.length} fuentes llegan`} con retraso.`}</p>
 
-<div class="tabla-desplazable">
+<div class="tabla-desplazable" tabindex="0" role="region" aria-label="Estado de cada fuente">
 <table class="datos">
   <thead><tr><th scope="col">Fuente</th><th scope="col">Periodicidad</th><th scope="col">Última carga</th><th scope="col">Dato más reciente</th><th scope="col">Estado</th></tr></thead>
   <tbody>${fuentes.map((f) => html`<tr>

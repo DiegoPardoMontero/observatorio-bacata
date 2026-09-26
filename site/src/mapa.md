@@ -4,7 +4,7 @@ title: Mapa de las localidades
 
 ```js
 import {fecha, mes, numero, conCodigo} from "./components/formato.js";
-import {colores} from "./components/ui.js";
+import {accesible, colores} from "./components/ui.js";
 import {termino} from "./components/glosario.js";
 
 const catalogo = FileAttachment("data/catalogo.json").json();
@@ -100,7 +100,8 @@ function mapa(width, elegida) {
     path.setAttribute("data-localidad", f.properties.localidad_id);
     path.addEventListener("click", () => elegir(f.properties.localidad_id));
   });
-  return svg;
+  // Interactivo: no se marca como imagen. La tabla de abajo es la alternativa accesible
+  return accesible(svg, {interactivo: true});
 }
 
 function leyenda() {

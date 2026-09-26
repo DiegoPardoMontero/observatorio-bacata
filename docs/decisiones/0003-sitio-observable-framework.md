@@ -37,7 +37,7 @@ La SPEC deja abierta la elección entre Observable Framework y Astro (§9) y pid
 
 **Hubo que rodearlo**
 
-- **No hay opción para el idioma del documento:** el HTML sale con `<html>` sin `lang`, lo que incumple WCAG 3.1.1. `site/scripts/idioma.js` agrega `lang="es"` después de cada build.
+- **No hay opción para el idioma del documento:** el HTML sale con `<html>` sin `lang`, lo que incumple WCAG 3.1.1. `site/scripts/accesibilidad.js` agrega `lang="es"` después de cada build. El mismo script quita el `maximum-scale=1` que Framework pone en el viewport y que impide ampliar la página (WCAG 1.4.4).
 - **La caché de los loaders no ve los datos:** Framework vuelve a correr un loader solo si cambia su código, no si cambia Bronze. `make site` borra `src/.observablehq/cache/data` antes de construir. En CI no importa, porque cada corrida empieza sin caché.
 - **El layout trae opiniones:** cabecera fija, barra lateral, índice y paginador. Se apagaron las tres últimas (`sidebar`, `toc`, `pager`) y se sobrescribió el CSS de la cabecera para que quede como en el diseño.
 - **Un `href="${…}"` en HTML rompe el build**, porque Framework lo toma como la ruta de un archivo estático. Los enlaces a archivos van con la ruta literal (`data/pm25_diario.csv`), y así Framework además copia el archivo al sitio.

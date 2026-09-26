@@ -228,3 +228,10 @@ table.datos td.num, table.datos th.num { text-align: right; font-variant-numeric
   box-shadow: var(--shadow-md);
 }
 .termino-def[hidden] { display: none; }
+
+/* Enlaces dentro de un texto: subrayados, porque el oro frente al gris del texto no
+   alcanza el contraste de 3:1 que pide WCAG 1.4.1 para distinguirlos solo por color.
+   Los enlaces-bloque (tarjetas, sugerencias, descargas, navegación) no van subrayados. */
+:where(p, li, td, th, figcaption) a[href] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+.sugerencias a, .descargas a, .nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }

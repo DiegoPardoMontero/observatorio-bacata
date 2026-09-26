@@ -84,6 +84,21 @@ export function categoriaIboca(categoria, colorHex) {
   return html`<span class="iboca"><span class="iboca-muestra" style=${{background: colorHex}} aria-hidden="true"></span>${categoria}</span>`;
 }
 
+/**
+ * Observable Plot pone aria-label en cada grupo de marcas ("line", "rule", "tip"). No le
+ * dice nada a quien usa un lector de pantalla y ARIA no lo permite en un <g> sin rol, así
+ * que se quita. Un gráfico no interactivo queda como una imagen con su ariaLabel; el
+ * resumen en texto que lo acompaña lleva las cifras (RNF-05).
+ */
+export function accesible(grafico, {interactivo = false} = {}) {
+  const svgs = grafico.tagName.toLowerCase() === "svg" ? [grafico] : [...grafico.querySelectorAll("svg")];
+  for (const svg of svgs) {
+    svg.querySelectorAll("g[aria-label]").forEach((g) => g.removeAttribute("aria-label"));
+    if (!interactivo && svg.hasAttribute("aria-label")) svg.setAttribute("role", "img");
+  }
+  return grafico;
+}
+
 /** Valores de tokens de color (--data-seq-2…) para escalas de Plot, que necesitan colores reales. */
 export function colores(...tokens) {
   const estilo = getComputedStyle(document.documentElement);

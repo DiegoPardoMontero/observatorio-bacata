@@ -4,7 +4,7 @@ title: ¿Cómo está el aire ahora?
 
 ```js
 import {ahoraBogota, fecha, fechaHora, hora, hace, numero, DIAS, MESES} from "./components/formato.js";
-import {aviso, categoriaIboca, colores} from "./components/ui.js";
+import {accesible, aviso, categoriaIboca, colores} from "./components/ui.js";
 import {termino} from "./components/glosario.js";
 
 const catalogo = FileAttachment("data/catalogo.json").json();
@@ -128,7 +128,7 @@ const sobreOms = diasConPromedio.filter((d) => d.pm25 > GUIA_OMS).length;
   <li><span class="clave-linea" aria-hidden="true"></span>Promedio ponderado de 12 horas (el que usa el IBOCA)</li>
 </ul>
 
-<div class="grafico">${resize((width) => graficoSemana(width))}</div>
+<div class="grafico">${resize((width) => accesible(graficoSemana(width)))}</div>
 
 ```js
 function graficoSemana(width) {
@@ -165,7 +165,7 @@ function graficoSemana(width) {
   <li><span class="clave-linea is-oms" aria-hidden="true"></span>${termino("oms", "Guía diaria de la OMS")}: ${GUIA_OMS} µg/m³</li>
 </ul>
 
-<div class="grafico">${resize((width) => graficoDiario(width))}</div>
+<div class="grafico">${resize((width) => accesible(graficoDiario(width)))}</div>
 
 ```js
 function graficoDiario(width) {
@@ -202,7 +202,7 @@ const pico = d3.greatest(celdas, (d) => d.pm25);
 
 <p>${pico ? `En los últimos 90 días, en ${estacion.nombre} el promedio más alto fue los ${["lunes","martes","miércoles","jueves","viernes","sábados","domingos"][pico.dia_semana - 1]} a las ${pico.hora}:00, con ${numero(pico.pm25)} µg/m³. Cada casilla es el promedio de esa hora en ese día de la semana.` : "No hay suficientes datos de los últimos 90 días."}</p>
 
-<div class="grafico">${resize((width) => graficoPatron(width))}</div>
+<div class="grafico">${resize((width) => accesible(graficoPatron(width)))}</div>
 
 ```js
 function graficoPatron(width) {
