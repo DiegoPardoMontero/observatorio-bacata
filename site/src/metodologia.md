@@ -57,6 +57,18 @@ Cuando se publique, seguirá estas reglas: siempre tasas, nunca rankings de "loc
 
 En exploración. Las fuentes de movilidad que encontramos están desactualizadas (2021 y 2024). El índice de precios al consumidor del DANE no tiene detalle por localidad.
 
+<h2 id="poblacion">Población</h2>
+
+**Fuente.** Las proyecciones y retroproyecciones de población de 2005 a 2035 por localidad que hicieron el DANE, la Secretaría Distrital de Planeación y la Región Metropolitana Bogotá-Cundinamarca, publicadas en agosto de 2025. Las tomamos del archivo que publica la Secretaría Distrital de Salud en [Datos Abiertos Bogotá](https://datosabiertos.bogota.gov.co/dataset/piramide-poblacional-bogota-d-c) (CC BY 4.0), que trae la población por localidad, año, sexo y edad. Sumamos sexos y edades.
+
+**Para qué la usamos.** Es el denominador de las tasas por 100.000 habitantes, que son la única forma en que el sitio mostrará temas como la seguridad: comparar conteos haría ver peor a las localidades más pobladas. Por ahora aparece en las fichas de cada localidad.
+
+**Limitaciones**
+
+- Todos los años son estimaciones, incluidos los anteriores al último censo (2018). Si el DANE publica una revisión, las tasas de años pasados pueden cambiar.
+- Antes de usarla verificamos que estén las 20 localidades en cada año y que su suma dé exactamente el total de Bogotá.
+- La Secretaría de Planeación publica otra versión, de marzo de 2025. Hasta 2017 las dos son idénticas. De 2018 a 2026, casi todas las localidades difieren menos de 4 %; las excepciones son Los Mártires (la versión de agosto da hasta 11 % menos) y Sumapaz (hasta 9 % menos). Usamos la más reciente.
+
 ## Mapas
 
 Los polígonos de las localidades son los de [Catastro Distrital (IDECA)](https://datosabiertos.bogota.gov.co/dataset/localidad-bogota-d-c), CC BY 4.0, con datos de 2022. Los simplificamos para que el mapa cargue rápido desde el celular, sin cambiar los bordes entre localidades vecinas.

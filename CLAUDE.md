@@ -9,6 +9,7 @@ Sitio cívico de datos abiertos de Bogotá, por localidad. Especificación: @doc
 - make site: construye el sitio en site/dist (Observable Framework, lee data/gold)
 - python -m extract.historia bajar | subir: historia de Bronze en la release `bronze` (ADR 0004)
 - El pipeline de producción es .github/workflows/pipeline.yml (cada hora)
+- python scripts/semilla_poblacion.py: regenera la población por localidad y año (ADR 0005); solo si la fuente publica una revisión
 
 # Reglas del proyecto
 - Todo en español: nombres de modelos, columnas y textos del sitio

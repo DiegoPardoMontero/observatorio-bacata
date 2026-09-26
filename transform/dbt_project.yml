@@ -24,3 +24,5 @@ seeds:
       +column_types: {localidad_id: varchar}
     estacion:
       +column_types: {estacion_id: integer, localidad_id: varchar}
+    poblacion_localidad:
+      +column_types: {localidad_id: varchar, anio: integer, poblacion: integer}

@@ -16,7 +16,9 @@ y en https://github.com/DiegoPardoMontero/observatorio-bacata.
 
 Licencia: CC BY-SA 4.0. Fuentes: RMCAB (Secretaría Distrital de Ambiente),
 Delito de Alto Impacto (Secretaría Distrital de Seguridad, Convivencia y
-Justicia, CC BY-SA 4.0) y Localidad. Bogotá D.C. (Catastro Distrital, CC BY 4.0).
+Justicia, CC BY-SA 4.0), Localidad. Bogotá D.C. (Catastro Distrital, CC BY 4.0)
+y las proyecciones de población por localidad DANE-SDP de agosto de 2025
+(publicadas por la Secretaría Distrital de Salud, CC BY 4.0).
 Las horas están en hora de Bogotá (UTC−5) y marcan el inicio de cada hora.
 """
 

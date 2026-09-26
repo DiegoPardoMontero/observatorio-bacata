@@ -76,7 +76,7 @@ Hay datos suficientes para los cuatro temas, pero con calidades muy distintas. S
 | Costo de vida | [IPC](https://www.dane.gov.co/index.php/estadisticas-por-tema/precios-y-costos/indice-de-precios-al-consumidor-ipc/) — DANE | Ciudad (Bogotá entre 38 ciudades), 12 divisiones de gasto | Mensual, base 2018 | XLSX (anexos) | DANE | Listo, pero sin detalle por localidad |
 | Costo de vida | [Encuesta Multipropósito](https://microdatos.dane.gov.co/index.php/catalog/743) — SDP y DANE | Hogar, representativa por localidad | Cada 3–4 años (última con microdatos: 2021) | Microdatos | DANE | Por explorar |
 
-**Faltante transversal:** población por localidad y año (proyecciones de la Secretaría de Planeación o del DANE). Es indispensable para calcular tasas por 100.000 habitantes. Hay que ubicar la fuente antes de la Fase 3.
+**Población por localidad y año:** proyecciones y retroproyecciones 2005-2035 del DANE y la Secretaría de Planeación (agosto de 2025), que publica la Secretaría de Salud en [Datos Abiertos Bogotá](https://datosabiertos.bogota.gov.co/dataset/piramide-poblacional-bogota-d-c) (CC BY 4.0). Es el denominador de las tasas por 100.000 habitantes ([ADR 0005](decisiones/0005-poblacion-por-localidad.md)).
 
 ## 5. Requerimientos funcionales
 
@@ -165,7 +165,7 @@ El corazón del modelo es una tabla Gold única en formato largo, `fct_indicador
 
 **Dimensiones conformadas**
 
-- `dim_localidad`: código oficial, nombre canónico, variantes de nombre para el cruce ("Antonio Nariño" / "ANTONIO NARIÑO" / "Ant. Nariño"), geometría y población por año.
+- `dim_localidad`: código oficial, nombre canónico, variantes de nombre para el cruce ("Antonio Nariño" / "ANTONIO NARIÑO" / "Ant. Nariño") y geometría. La población por año va en `dim_localidad_anio` ([ADR 0005](decisiones/0005-poblacion-por-localidad.md)).
 - `dim_fecha`: día, mes, año, día de la semana, festivo en Colombia.
 - `dim_indicador`: código, nombre para humanos, tema, unidad, dirección (si subir es bueno o malo), fuente y licencia.
 - `dim_estacion` (aire): estación RMCAB, coordenadas y localidad.
@@ -197,7 +197,7 @@ El riesgo técnico más alto es depender de extraer datos del portal RMCAB. El r
 - [ ] ¿Pedir a la Secretaría de Ambiente acceso formal a datos horarios antes de construir el extractor?
 - [x] ¿Cloudflare R2 o GitHub Releases para la historia entre corridas? GitHub Releases ([ADR 0004](decisiones/0004-historia-en-github-releases.md))
 - [x] ¿Observable Framework o Astro para el sitio? Observable Framework ([ADR 0003](decisiones/0003-sitio-observable-framework.md))
-- [ ] ¿Qué fuente de población por localidad se usa como oficial?
+- [x] ¿Qué fuente de población por localidad se usa como oficial? Las proyecciones DANE-SDP de agosto de 2025 ([ADR 0005](decisiones/0005-poblacion-por-localidad.md))
 - [ ] ¿Dominio propio (p. ej. bacata.co o similar) o subdominio gratuito al inicio?
 - [ ] ¿Cómo se diferencia de observatorios que ya existen, como el de la Secretaría de Movilidad? Propuesta: la vista cruzada de los cuatro temas por localidad
 - [x] ¿Aire o seguridad como primer tema publicado? Aire: seguridad necesita población por localidad y su fuente tiene inconsistencias ([ADR 0002](decisiones/0002-extraccion-delito-alto-impacto.md))

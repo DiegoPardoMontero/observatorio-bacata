@@ -18,9 +18,17 @@ def filas(sql: str) -> list[dict]:
     return [dict(zip(columnas, fila)) for fila in cursor.fetchall()]
 
 
+ahora = datetime.now(ZoneInfo("America/Bogota"))
+
 catalogo = {
-    "construido": datetime.now(ZoneInfo("America/Bogota")).strftime("%Y-%m-%dT%H:%M:%SZ"),
-    "localidades": filas("SELECT * FROM dim_localidad ORDER BY localidad_id"),
+    "construido": ahora.strftime("%Y-%m-%dT%H:%M:%SZ"),
+    # Con la población estimada del año en curso (ADR 0005)
+    "localidades": filas(
+        f"""SELECT l.*, p.anio AS anio_poblacion, p.poblacion
+            FROM dim_localidad l
+            LEFT JOIN dim_localidad_anio p ON p.localidad_id = l.localidad_id AND p.anio = {ahora.year}
+            ORDER BY l.localidad_id"""
+    ),
     "estaciones": filas("SELECT * EXCLUDE (sigla_sda) FROM dim_estacion ORDER BY nombre"),
     "indicadores": filas("SELECT * FROM dim_indicador"),
     "fuentes": filas(

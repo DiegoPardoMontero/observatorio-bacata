@@ -57,6 +57,10 @@ display(selector);
 
 # __NOMBRE__, en cifras
 
+<p class="entradilla">${localidad.poblacion ? `${numero(localidad.poblacion, 0)} habitantes en ${localidad.anio_poblacion}. ` : ""}Sus cifras en los cuatro temas, comparadas con las de toda Bogotá.</p>
+
+${localidad.poblacion ? html`<p class="fuente">Población estimada: proyecciones del <b>DANE</b> y la Secretaría Distrital de Planeación, publicadas en agosto de 2025. <a href="../metodologia#poblacion">Cómo se calculó</a></p>` : ""}
+
 ```js
 if (localidad.es_rural) {
   display(html`<div class="avisos">${aviso({

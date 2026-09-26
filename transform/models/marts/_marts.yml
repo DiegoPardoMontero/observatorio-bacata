@@ -22,6 +22,44 @@ models:
                 to: ref('dim_localidad')
                 field: localidad_id
 
+  - name: dim_localidad_anio
+    description: >
+      Habitantes por localidad y año, de 2005 a 2035 (proyecciones DANE-SDP de agosto de 2025,
+      ADR 0005). Es el denominador de las tasas por 100.000 habitantes.
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [localidad_id, anio]
+    columns:
+      - name: localidad_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_localidad')
+                field: localidad_id
+      - name: anio
+        data_tests:
+          - not_null
+          - en_rango:
+              arguments:
+                minimo: 2005
+                maximo: 2035
+      - name: poblacion
+        data_tests:
+          - not_null
+          # Sumapaz, la menos poblada, tiene unos 3.000; Suba, la más poblada, 1,3 millones
+          - en_rango:
+              arguments:
+                minimo: 1000
+                maximo: 2000000
+      - name: poblacion_ciudad
+        data_tests:
+          - en_rango:
+              arguments:
+                minimo: 6000000
+                maximo: 10000000
+
   - name: dim_indicador
     columns:
       - name: indicador_id
