@@ -24,3 +24,47 @@ models:
         data_tests: [not_null]
       - name: es_valida
         data_tests: [not_null]
+
+  - name: stg_sdscj__delito_alto_impacto
+    # Seguridad todavía no se publica: estas pruebas avisan pero no detienen el pipeline, para
+    # que un problema de esta fuente no deje sin publicar el aire. Pasan a error cuando se publique.
+    description: >
+      Una fila por localidad, corte, medida (conteo, variacion_pct o total_ciudad), delito y año.
+      Si un corte se descargó varias veces con archivos distintos, queda la extracción más reciente.
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [localidad_id, fecha_corte, medida, delito_codigo, anio]
+          config: {severity: warn}
+    columns:
+      - name: localidad_id
+        data_tests:
+          - not_null:
+              config: {severity: warn}
+          # 99 es "Sin Localización" en la fuente
+          - accepted_values:
+              arguments:
+                values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "99"]
+              config: {severity: warn}
+      - name: fecha_corte
+        data_tests:
+          - not_null:
+              config: {severity: warn}
+      - name: medida
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [conteo, variacion_pct, total_ciudad]
+              config: {severity: warn}
+      - name: delito_codigo
+        data_tests:
+          - not_null:
+              config: {severity: warn}
+          - accepted_values:
+              arguments:
+                values: [H, LP, HP, HR, HA, HB, HC, HCE, HM, DS, VI]
+              config: {severity: warn}
+      - name: valor
+        data_tests:
+          - not_null:
+              config: {severity: warn}
