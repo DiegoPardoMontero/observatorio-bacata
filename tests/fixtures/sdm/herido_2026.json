@@ -1,0 +1,132 @@
+{
+ "objectIdFieldName": "OBJECTID",
+ "globalIdFieldName": "",
+ "geometryType": "esriGeometryPoint",
+ "spatialReference": {
+  "wkid": 4686,
+  "latestWkid": 4686
+ },
+ "fields": [
+  {
+   "name": "CODIGO_ACCIDENTADO",
+   "alias": "CODIGO_ACCIDENTADO",
+   "type": "esriFieldTypeString",
+   "length": 40
+  },
+  {
+   "name": "FORMULARIO",
+   "alias": "FORMULARIO",
+   "type": "esriFieldTypeString",
+   "length": 15
+  },
+  {
+   "name": "FECHA_OCURRENCIA_ACC",
+   "alias": "FECHA_OCURRENCIA_ACC",
+   "type": "esriFieldTypeDate",
+   "length": 8
+  },
+  {
+   "name": "HORA_OCURRENCIA_ACC",
+   "alias": "HORA_OCURRENCIA_ACC",
+   "type": "esriFieldTypeString",
+   "length": 8
+  },
+  {
+   "name": "ANO_OCURRENCIA_ACC",
+   "alias": "ANO_OCURRENCIA_ACC",
+   "type": "esriFieldTypeDouble"
+  },
+  {
+   "name": "CLASE_ACC",
+   "alias": "CLASE_ACC",
+   "type": "esriFieldTypeString",
+   "length": 20
+  },
+  {
+   "name": "LOCALIDAD",
+   "alias": "LOCALIDAD",
+   "type": "esriFieldTypeString",
+   "length": 50
+  },
+  {
+   "name": "CONDICION",
+   "alias": "CONDICION",
+   "type": "esriFieldTypeString",
+   "length": 4000
+  },
+  {
+   "name": "CONDICION_A",
+   "alias": "CONDICION_A",
+   "type": "esriFieldTypeString",
+   "length": 4000
+  }
+ ],
+ "features": [
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14479122",
+    "FORMULARIO": "A001818868",
+    "FECHA_OCURRENCIA_ACC": 1777939200000,
+    "HORA_OCURRENCIA_ACC": "13:56:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "CAIDA DE OCUPANTE",
+    "LOCALIDAD": "LOS MARTIRES",
+    "CONDICION": "PASAJERO",
+    "CONDICION_A": "PASAJERO"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14479123",
+    "FORMULARIO": "A001818868",
+    "FECHA_OCURRENCIA_ACC": 1777939200000,
+    "HORA_OCURRENCIA_ACC": "13:56:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "CAIDA DE OCUPANTE",
+    "LOCALIDAD": "LOS MARTIRES",
+    "CONDICION": "PASAJERO",
+    "CONDICION_A": "PASAJERO"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14479124",
+    "FORMULARIO": "A001818868",
+    "FECHA_OCURRENCIA_ACC": 1777939200000,
+    "HORA_OCURRENCIA_ACC": "13:56:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "CAIDA DE OCUPANTE",
+    "LOCALIDAD": "LOS MARTIRES",
+    "CONDICION": "PASAJERO",
+    "CONDICION_A": "PASAJERO"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14472020",
+    "FORMULARIO": "A001769934",
+    "FECHA_OCURRENCIA_ACC": 1770768000000,
+    "HORA_OCURRENCIA_ACC": "14:18:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "ATROPELLO",
+    "LOCALIDAD": "CANDELARIA",
+    "CONDICION": "MOTOCICLISTA",
+    "CONDICION_A": "MOTOCICLISTA"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14472344",
+    "FORMULARIO": "A001770559",
+    "FECHA_OCURRENCIA_ACC": 1771113600000,
+    "HORA_OCURRENCIA_ACC": "04:30:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "ATROPELLO",
+    "LOCALIDAD": "ANTONIO NARIÑO",
+    "CONDICION": "PEATON",
+    "CONDICION_A": "PEATON"
+   }
+  }
+ ],
+ "exceededTransferLimit": true
+}

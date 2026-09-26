@@ -17,8 +17,11 @@ y en https://github.com/DiegoPardoMontero/observatorio-bacata.
 Licencia: CC BY-SA 4.0. Fuentes: RMCAB (Secretaría Distrital de Ambiente),
 Delito de Alto Impacto (Secretaría Distrital de Seguridad, Convivencia y
 Justicia, CC BY-SA 4.0), Localidad. Bogotá D.C. (Catastro Distrital, CC BY 4.0)
-y las proyecciones de población por localidad DANE-SDP de agosto de 2025
-(publicadas por la Secretaría Distrital de Salud, CC BY 4.0).
+las proyecciones de población por localidad DANE-SDP de agosto de 2025
+(publicadas por la Secretaría Distrital de Salud, CC BY 4.0) y los siniestros
+viales del SIGAT (Secretaría Distrital de Movilidad, licencia por confirmar).
+En siniestros, la localidad es donde ocurrió el siniestro, no donde vive la
+víctima, y los dos meses más recientes son provisionales.
 Las horas están en hora de Bogotá (UTC−5) y marcan el inicio de cada hora.
 """
 

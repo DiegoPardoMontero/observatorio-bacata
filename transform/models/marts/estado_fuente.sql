@@ -25,3 +25,17 @@ select
     cast(max(fecha_corte) as timestamp) + interval 1 day,
     count(*)
 from {{ ref('stg_sdscj__delito_alto_impacto') }}
+
+union all
+
+select
+    'sdm',
+    'Siniestros viales · Secretaría de Movilidad',
+    'Víctimas de siniestros por localidad',
+    'Diaria',
+    -- La SDM publica con unos 3 días de retraso; se avisa si pasa una semana sin datos nuevos
+    7 * 24,
+    cast(max(fecha_extraccion) at time zone 'America/Bogota' as timestamp),
+    cast(max(fecha) as timestamp) + interval 1 day,
+    count(*)
+from {{ ref('stg_sdm__victima') }}

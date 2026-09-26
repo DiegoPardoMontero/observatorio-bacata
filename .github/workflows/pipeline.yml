@@ -56,8 +56,19 @@ jobs:
             python -m extract.sdscj
           fi
 
+      # La SDM sigue digitando los siniestros durante semanas: cada día se vuelven a bajar el
+      # año en curso y el anterior, y se reemplazan en Bronze (ADR 0006). Si todavía no hay
+      # siniestros en Bronze, se intenta en cada corrida: sin ellos, dbt no puede construir.
+      - name: Extraer siniestros viales (una vez al día)
+        id: sdm
+        continue-on-error: true
+        run: |
+          if [ "$(TZ=America/Bogota date +%H)" = "06" ] || [ "${{ github.event_name }}" != "schedule" ] || [ ! -d data/bronze/sdm__victima ]; then
+            python -m extract.sdm
+          fi
+
       - name: Guardar la historia de Bronze
-        if: steps.rmcab.outcome == 'success' || steps.sdscj.outcome == 'success'
+        if: steps.rmcab.outcome == 'success' || steps.sdscj.outcome == 'success' || steps.sdm.outcome == 'success'
         run: python -m extract.historia subir
 
       - name: Transformar y probar (dbt)

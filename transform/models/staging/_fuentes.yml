@@ -14,3 +14,10 @@ sources:
           error_after: {count: 6, period: hour}
       - name: sdscj__delito_alto_impacto
         description: Acumulados del año a la fecha por localidad y delito (ADR 0002).
+      - name: sdm__victima
+        description: Víctimas de siniestros viales desde 2021, un archivo por año que se reemplaza en cada carga (ADR 0006).
+        loaded_at_field: fecha_extraccion
+        # Se extrae una vez al día
+        freshness:
+          warn_after: {count: 36, period: hour}
+          error_after: {count: 72, period: hour}

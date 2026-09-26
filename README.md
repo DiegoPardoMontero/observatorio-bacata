@@ -16,7 +16,7 @@ Proyecto cívico, gratuito y de código abierto. Cada cifra del sitio dice de d�
 | --- | --- | --- |
 | Aire | Publicado (Fase 1) | IBOCA por estación cada hora, series horaria y diaria de PM2.5 con la norma y la guía de la OMS, patrón por hora y día, PM2.5 mensual por localidad en el mapa y en las fichas |
 | Población | Lista (base común) | Habitantes por localidad y año de 2005 a 2035, para calcular tasas por 100.000 habitantes |
-| Movilidad | En exploración (Fase 2) | — |
+| Movilidad | Extracción lista, sin publicar (Fase 2) | Víctimas de siniestros viales por localidad y tipo de actor desde 2021, en el dataset descargable. Falta decidir cómo comparar localidades ([ADR 0006](docs/decisiones/0006-fuentes-de-movilidad.md)) |
 | Seguridad | Extracción lista, sin publicar (Fase 3) | Faltan una serie mensual y que la Secretaría aclare tres hurtos ([ADR 0002](docs/decisiones/0002-extraccion-delito-alto-impacto.md)) |
 | Costo de vida | Pendiente (Fase 4) | — |
 
@@ -65,6 +65,7 @@ dbt build --project-dir transform --profiles-dir transform       # modelos y pru
 | [RMCAB, reporte horario](http://rmcab.ambientebogota.gov.co/Report/HourlyReports) | Secretaría Distrital de Ambiente | Por confirmar |
 | [Delito de Alto Impacto](https://datosabiertos.bogota.gov.co/dataset/delito-de-alto-impacto-bogota-d-c) | Secretaría Distrital de Seguridad, Convivencia y Justicia | CC BY-SA 4.0 |
 | [Población por localidad 2005-2035](https://datosabiertos.bogota.gov.co/dataset/piramide-poblacional-bogota-d-c) | DANE y Secretaría Distrital de Planeación (publica la Secretaría de Salud) | CC BY 4.0 |
+| [Siniestralidad (SIGAT)](https://datos.movilidadbogota.gov.co/search?tags=siniestralidad) | Secretaría Distrital de Movilidad | Por confirmar |
 | [Localidad. Bogotá D.C.](https://datosabiertos.bogota.gov.co/dataset/localidad-bogota-d-c) | Catastro Distrital (IDECA) | CC BY 4.0 |
 
 ## Reglas que no se negocian

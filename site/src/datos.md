@@ -33,7 +33,7 @@ const corte = fechaHora(new Date(rmcab.dato_mas_reciente));
   </li>
   <li>
     <a href="data/gold.zip" download="bacata_gold.zip">${icono("descargar")}Dataset completo (Parquet, zip)</a>
-    <p>Todas las tablas Gold: dimensiones de localidad, estación e indicador; población por localidad y año de 2005 a 2035; calendario con los festivos de Colombia; aire por hora, por día y con IBOCA; indicadores por localidad y mes, y estado de las fuentes. Unos 6 MB.</p>
+    <p>Todas las tablas Gold: dimensiones de localidad, estación e indicador; población por localidad y año de 2005 a 2035; calendario con los festivos de Colombia; víctimas de siniestros viales por localidad, mes y tipo de actor (todavía sin página en el sitio); aire por hora, por día y con IBOCA; indicadores por localidad y mes, y estado de las fuentes. Unos 6 MB.</p>
   </li>
 </ul>
 

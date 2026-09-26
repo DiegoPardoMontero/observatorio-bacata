@@ -68,3 +68,46 @@ models:
         data_tests:
           - not_null:
               config: {severity: warn}
+
+  - name: stg_sdm__victima
+    # Movilidad todavía no se publica: como en seguridad, estas pruebas avisan pero no detienen
+    # el pipeline. El extractor ya garantiza casi todo con su prueba de contrato.
+    description: >
+      Una víctima de siniestro vial por fila, desde 2021: localidad donde ocurrió el siniestro,
+      fecha, estado (muerto o herido) y tipo de actor.
+    columns:
+      - name: victima_id
+        data_tests:
+          - unique:
+              config: {severity: warn}
+          - not_null:
+              config: {severity: warn}
+      - name: localidad_id
+        data_tests:
+          - not_null:
+              config: {severity: warn}
+          - relationships:
+              arguments:
+                to: ref('localidad')
+                field: localidad_id
+              config: {severity: warn}
+      - name: fecha
+        data_tests:
+          - not_null:
+              config: {severity: warn}
+          - en_rango:
+              arguments:
+                minimo: "'2021-01-01'"
+              config: {severity: warn}
+      - name: estado
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [muerto, herido]
+              config: {severity: warn}
+      - name: actor
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [peaton, ciclista, motociclista, conductor, pasajero]
+              config: {severity: warn}

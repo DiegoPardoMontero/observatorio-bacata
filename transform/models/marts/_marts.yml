@@ -158,6 +158,31 @@ models:
       - name: fecha_corte_fuente
         data_tests: [not_null]
 
+  - name: fct_movilidad_victima_mes
+    description: >
+      Víctimas de siniestros viales (muertas o heridas) por localidad donde ocurrió el siniestro,
+      mes y tipo de actor, desde 2021. Conteos, sin tasas (ADR 0006). `es_provisional` marca los
+      dos meses más recientes, que la SDM sigue digitando.
+    data_tests:
+      - combinacion_unica:
+          arguments:
+            columnas: [localidad_id, mes, estado, actor]
+          config: {severity: warn}
+    columns:
+      - name: localidad_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_localidad')
+                field: localidad_id
+              config: {severity: warn}
+      - name: victimas
+        data_tests:
+          - en_rango:
+              arguments:
+                minimo: 1
+              config: {severity: warn}
+
   - name: estado_fuente
     description: Una fila por fuente con su última extracción y su dato más reciente (RF-20).
     columns:

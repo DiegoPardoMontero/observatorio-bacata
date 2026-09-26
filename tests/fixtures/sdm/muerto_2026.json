@@ -1,0 +1,129 @@
+{
+ "objectIdFieldName": "OBJECTID",
+ "globalIdFieldName": "",
+ "geometryType": "esriGeometryPoint",
+ "spatialReference": {
+  "wkid": 4686,
+  "latestWkid": 4686
+ },
+ "fields": [
+  {
+   "name": "CODIGO_ACCIDENTADO",
+   "alias": "CODIGO_ACCIDENTADO",
+   "type": "esriFieldTypeString",
+   "length": 40
+  },
+  {
+   "name": "FORMULARIO",
+   "alias": "FORMULARIO",
+   "type": "esriFieldTypeString",
+   "length": 15
+  },
+  {
+   "name": "FECHA_OCURRENCIA_ACC",
+   "alias": "FECHA_OCURRENCIA_ACC",
+   "type": "esriFieldTypeDate",
+   "length": 8
+  },
+  {
+   "name": "HORA_OCURRENCIA_ACC",
+   "alias": "HORA_OCURRENCIA_ACC",
+   "type": "esriFieldTypeString",
+   "length": 8
+  },
+  {
+   "name": "ANO_OCURRENCIA_ACC",
+   "alias": "ANO_OCURRENCIA_ACC",
+   "type": "esriFieldTypeDouble"
+  },
+  {
+   "name": "CLASE_ACC",
+   "alias": "CLASE_ACC",
+   "type": "esriFieldTypeString",
+   "length": 20
+  },
+  {
+   "name": "LOCALIDAD",
+   "alias": "LOCALIDAD",
+   "type": "esriFieldTypeString",
+   "length": 50
+  },
+  {
+   "name": "CONDICION",
+   "alias": "CONDICION",
+   "type": "esriFieldTypeString",
+   "length": 4000
+  },
+  {
+   "name": "CONDICION_A",
+   "alias": "CONDICION_A",
+   "type": "esriFieldTypeString",
+   "length": 4000
+  },
+  {
+   "name": "MUERTE_POSTERIOR",
+   "alias": "MUERTE_POSTERIOR",
+   "type": "esriFieldTypeString",
+   "length": 4
+  }
+ ],
+ "features": [
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14468736",
+    "FORMULARIO": "A001769758",
+    "FECHA_OCURRENCIA_ACC": 1768262400000,
+    "HORA_OCURRENCIA_ACC": "07:55:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "VOLCAMIENTO",
+    "LOCALIDAD": "USME",
+    "CONDICION": "CICLISTA",
+    "CONDICION_A": "CICLISTA",
+    "MUERTE_POSTERIOR": "N"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14468743",
+    "FORMULARIO": "A001767004",
+    "FECHA_OCURRENCIA_ACC": 1768262400000,
+    "HORA_OCURRENCIA_ACC": "05:34:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "CHOQUE",
+    "LOCALIDAD": "SUBA",
+    "CONDICION": "PASAJERO",
+    "CONDICION_A": "MOTOCICLISTA",
+    "MUERTE_POSTERIOR": "N"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14472659",
+    "FORMULARIO": "A001771021",
+    "FECHA_OCURRENCIA_ACC": 1772323200000,
+    "HORA_OCURRENCIA_ACC": "10:50:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "VOLCAMIENTO",
+    "LOCALIDAD": "CHAPINERO",
+    "CONDICION": "MOTOCICLISTA",
+    "CONDICION_A": "MOTOCICLISTA",
+    "MUERTE_POSTERIOR": "N"
+   }
+  },
+  {
+   "attributes": {
+    "CODIGO_ACCIDENTADO": "14472660",
+    "FORMULARIO": "A001771109",
+    "FECHA_OCURRENCIA_ACC": 1772582400000,
+    "HORA_OCURRENCIA_ACC": "12:48:00",
+    "ANO_OCURRENCIA_ACC": 2026.0,
+    "CLASE_ACC": "VOLCAMIENTO",
+    "LOCALIDAD": "SAN CRISTOBAL",
+    "CONDICION": "CICLISTA",
+    "CONDICION_A": "CICLISTA",
+    "MUERTE_POSTERIOR": "N"
+   }
+  }
+ ],
+ "exceededTransferLimit": true
+}

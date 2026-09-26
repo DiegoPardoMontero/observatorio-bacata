@@ -58,7 +58,8 @@ El "documento" del hub de datos de TransMilenio es un bucket público de Google 
 - **Bronze no guarda cada carga:** `data/bronze/sdm__victima/anio_ocurrencia=AAAA/victimas.parquet`, un archivo por año que se reemplaza en cada carga, con `fecha_extraccion` adentro. Es distinto de la RMCAB y de la SDSCJ porque la fuente conserva toda su historia (se puede volver a bajar) y los registros se siguen digitando durante semanas: guardar una copia diaria de dos años haría crecer la historia de Bronze en cientos de MB al año, el límite que fija la ADR 0004.
 - Cada día se vuelven a bajar el año en curso y el anterior; la primera carga baja desde 2021.
 - **Prueba de contrato:** la extracción se detiene si la respuesta trae otros campos, si las filas bajadas no son las que el servidor cuenta para ese año, si aparece una localidad o un tipo de actor desconocido, si una fecha no es del año pedido o si un código de víctima se repite. El nombre de la localidad se convierte a su código (`CANDELARIA` → 17) y Bronze guarda los dos.
-- En el pipeline corre una vez al día, como la SDSCJ.
+- En el pipeline corre una vez al día, como la SDSCJ, y en cada corrida mientras no haya siniestros en Bronze. La corrida diaria también baja cualquier año desde 2021 que falte, así que la primera corrida en CI completa la historia sola (unos 70 s y 1,7 MB).
+- **dbt:** `stg_sdm__victima` (una fila por víctima, deduplicada por código con la extracción más reciente) y `fct_movilidad_victima_mes` (conteos por localidad, mes, estado y tipo de actor, con los dos meses más recientes marcados como provisionales). Sus pruebas avisan pero no detienen el pipeline mientras movilidad no se publique, como las de seguridad.
 
 **Validaciones (RF-11):** se construirán después, desde el XLSX mensual de troncal, cruzado por código de estación con una tabla de equivalencias. Una estación es infraestructura, no personas: mostrarla no choca con la regla de no bajar de localidad, que la SPEC (§9, regla 5) fija para seguridad. El aire ya se muestra por estación.
 
@@ -96,7 +97,7 @@ La tabla va en orden de código, no de mayor a menor. Con la tasa por residentes
 2. Tasa por residentes, con una advertencia visible junto a cada cifra.
 3. Las dos, con el conteo como cifra principal.
 
-La recomendación es la 1, con víctimas en los últimos 12 meses (los muertos de un mes en una localidad son muy pocos para compararlos) y sin los dos meses más recientes, que todavía se están digitando. Hasta que se decida, los siniestros no se publican en el sitio.
+La recomendación es la 1, con víctimas en los últimos 12 meses (los muertos de un mes en una localidad son muy pocos para compararlos) y sin los dos meses más recientes, que todavía se están digitando. Hasta que se decida, los siniestros no se muestran en las páginas del sitio. Los conteos por localidad, mes y tipo de actor (`fct_movilidad_victima_mes`, sin tasas) sí van en el dataset descargable, porque no ordenan ni califican localidades.
 
 ## Consecuencias
 

@@ -53,9 +53,17 @@ En preparación. La fuente es [Delito de Alto Impacto](https://datosabiertos.bog
 
 Cuando se publique, seguirá estas reglas: siempre tasas, nunca rankings de "localidades peligrosas", cada localidad comparada primero consigo misma, un aviso de que son delitos registrados y nada por debajo de localidad.
 
-<h2 id="movilidad">Movilidad y costo de vida</h2>
+<h2 id="movilidad">Movilidad</h2>
 
-En exploración. Las fuentes de movilidad que encontramos están desactualizadas (2021 y 2024). El índice de precios al consumidor del DANE no tiene detalle por localidad.
+En preparación. Ya descargamos todos los días las víctimas de siniestros viales de la [Secretaría Distrital de Movilidad](https://datos.movilidadbogota.gov.co/search?tags=siniestralidad) (base SIGAT) desde 2021: cada persona muerta o herida, con la localidad donde ocurrió el siniestro y si iba a pie, en bicicleta, en moto, manejando o como pasajero. Las cifras por localidad ya están en el [dataset completo](/datos). No descargamos el género, la edad ni la dirección de las víctimas.
+
+Antes de mostrarlas en el sitio falta decidir cómo comparar localidades. Un siniestro se cuenta donde ocurrió y no donde vive la víctima, así que una tasa por habitantes haría ver peor a las localidades céntricas, con grandes vías y poca población, aunque sus vecinos no sean los afectados. Además, los dos meses más recientes se siguen digitando: las cifras de esos meses todavía van a subir.
+
+Las validaciones de TransMilenio por estación también están al día, y serán lo siguiente.
+
+<h2 id="costo">Costo de vida</h2>
+
+En exploración. El índice de precios al consumidor del DANE no tiene detalle por localidad.
 
 <h2 id="poblacion">Población</h2>
 
