@@ -9,9 +9,17 @@ Para no perder la historia si una subida falla a medias, el archivo nuevo se
 sube primero con otro nombre y solo después reemplaza al vigente, que queda
 como bronze-anterior.tar: siempre hay una copia de la corrida previa.
 
+Dos barreras más, porque perder la historia no tiene arreglo (los cortes mensuales
+de seguridad no se pueden volver a bajar):
+- Solo "release not found" cuenta como que no hay historia. Cualquier otro error de
+  `gh` (red, permisos, límite de la API) detiene la corrida: si se tomara como
+  historia vacía, se subiría un Bronze con solo el día actual.
+- La historia solo crece. `subir` se niega a reemplazar el archivo vigente por uno
+  mucho más pequeño (menos del 90 %), salvo con --forzar.
+
 Uso (necesita el CLI `gh` autenticado, o GH_TOKEN en Actions):
     python -m extract.historia bajar
-    python -m extract.historia subir
+    python -m extract.historia subir [--forzar]
 """
 
 from __future__ import annotations
@@ -29,6 +37,8 @@ ASSET_NUEVO = "bronze-nuevo.tar"
 ASSET_ANTERIOR = "bronze-anterior.tar"
 DIR_DATOS = Path("data")
 DIR_BRONZE = DIR_DATOS / "bronze"
+# El archivo nuevo no puede pesar menos que esta fracción del vigente
+FRACCION_MINIMA = 0.9
 
 
 def _gh(*args: str, capturar: bool = False) -> str:
@@ -36,13 +46,18 @@ def _gh(*args: str, capturar: bool = False) -> str:
     return resultado.stdout if capturar else ""
 
 
-def _assets() -> dict[str, str] | None:
-    """Nombre -> id de los assets de la release, o None si la release no existe."""
+def _assets() -> dict[str, dict] | None:
+    """Nombre -> {"id", "bytes"} de los assets de la release, o None si la release no existe."""
     try:
         salida = _gh("release", "view", RELEASE, "--json", "assets", capturar=True)
-    except subprocess.CalledProcessError:
-        return None
-    return {a["name"]: a["apiUrl"].rsplit("/", 1)[-1] for a in json.loads(salida)["assets"]}
+    except subprocess.CalledProcessError as error:
+        if "release not found" in (error.stderr or ""):
+            return None
+        raise SystemExit(f"No se pudo consultar la release {RELEASE!r}: {(error.stderr or '').strip()}") from error
+    return {
+        a["name"]: {"id": a["apiUrl"].rsplit("/", 1)[-1], "bytes": a["size"]}
+        for a in json.loads(salida)["assets"]
+    }
 
 
 def bajar() -> None:
@@ -60,14 +75,22 @@ def bajar() -> None:
     print(f"Historia bajada de {RELEASE}/{nombre}: {archivos} archivos en {DIR_BRONZE}")
 
 
-def subir() -> None:
+def subir(forzar: bool = False) -> None:
     if not DIR_BRONZE.exists():
         raise SystemExit(f"No hay {DIR_BRONZE} para subir")
     with tempfile.TemporaryDirectory() as tmp:
         nuevo = Path(tmp) / ASSET_NUEVO
         with tarfile.open(nuevo, "w") as tar:
             tar.add(DIR_BRONZE, arcname="bronze")
-        if _assets() is None:
+        previos = _assets()
+        vigente = (previos or {}).get(ASSET)
+        if vigente and nuevo.stat().st_size < FRACCION_MINIMA * vigente["bytes"] and not forzar:
+            raise SystemExit(
+                f"El Bronze nuevo pesa {nuevo.stat().st_size / 1e6:.1f} MB y el vigente "
+                f"{vigente['bytes'] / 1e6:.1f} MB. La historia solo crece, así que no se reemplaza: "
+                "¿falló la bajada? Si la reducción es intencional, usa --forzar."
+            )
+        if previos is None:
             _gh(
                 "release", "create", RELEASE, "--prerelease", "--title", "Historia de Bronze",
                 "--notes", "Datos crudos de las fuentes entre corridas del pipeline (ADR 0004). No es una versión del sitio.",
@@ -77,11 +100,11 @@ def subir() -> None:
         repo = _gh("repo", "view", "--json", "nameWithOwner", "--jq", ".nameWithOwner", capturar=True).strip()
 
         def renombrar(de: str, a: str) -> None:
-            _gh("api", "-X", "PATCH", f"repos/{repo}/releases/assets/{assets[de]}", "-f", f"name={a}", capturar=True)
+            _gh("api", "-X", "PATCH", f"repos/{repo}/releases/assets/{assets[de]['id']}", "-f", f"name={a}", capturar=True)
 
         if ASSET in assets:
             if ASSET_ANTERIOR in assets:
-                _gh("api", "-X", "DELETE", f"repos/{repo}/releases/assets/{assets[ASSET_ANTERIOR]}", capturar=True)
+                _gh("api", "-X", "DELETE", f"repos/{repo}/releases/assets/{assets[ASSET_ANTERIOR]['id']}", capturar=True)
             renombrar(ASSET, ASSET_ANTERIOR)
         renombrar(ASSET_NUEVO, ASSET)
         megas = nuevo.stat().st_size / 1e6
@@ -91,11 +114,12 @@ def subir() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Baja o sube la historia de Bronze (GitHub Releases).")
     parser.add_argument("accion", choices=["bajar", "subir"])
+    parser.add_argument("--forzar", action="store_true", help="subir aunque el Bronze nuevo sea más pequeño que el vigente")
     args = parser.parse_args()
     if args.accion == "bajar":
         bajar()
     else:
-        subir()
+        subir(forzar=args.forzar)
 
 
 if __name__ == "__main__":
